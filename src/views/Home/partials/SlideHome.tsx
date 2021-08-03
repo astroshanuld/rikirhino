@@ -13,7 +13,7 @@ function SlideHome(props: HomeProps) {
   }
 
   return (
-    <Row gutter={[0, 16]} style={{ height }}>
+    <Row gutter={[0, 16]}>
       <Col
         xl={24}
         lg={24}

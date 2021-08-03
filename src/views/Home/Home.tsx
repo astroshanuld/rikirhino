@@ -23,6 +23,7 @@ function Home() {
   const [height, setHeight] = useState(250)
   const [tabIndex, setTabIndex] = useState('1')
 
+  const screenXxl = useMediaQuery({ query: '(min-width: 1600px)' })
   const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
   const screenLg = useMediaQuery({ query: '(min-width: 992px)' })
   const screenMd = useMediaQuery({ query: '(min-width: 768px)' })
@@ -52,8 +53,10 @@ function Home() {
   )
 
   useEffect(() => {
-    if (screenXl) {
+    if (screenXxl) {
       setHeight(449)
+    } else if (screenXl) {
+      setHeight(380)
     } else if (screenLg) {
       setHeight(665)
     } else if (screenMd) {
@@ -95,7 +98,7 @@ function Home() {
 
   return (
     <div>
-      <Layout className="layout" style={{ height: '100%' }}>
+      <Layout className="layout" style={{ height: '100vh' }}>
         <Content className={cssHome.baseContent}>
           <Row gutter={[0, 16]}>
             <Col xl={1} lg={3} md={4} sm={5} style={{ zIndex: 1 }}>
