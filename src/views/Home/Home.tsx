@@ -54,7 +54,7 @@ function Home() {
 
   useEffect(() => {
     if (screenXxl) {
-      setHeight(449)
+      setHeight(460)
     } else if (screenXl) {
       setHeight(380)
     } else if (screenLg) {
