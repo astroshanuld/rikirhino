@@ -118,8 +118,16 @@ function Home() {
                   }}
                   tabBarExtraContent={extraButton}
                 >
-                  <TabPane tab="Home" key="1" />
-                  <TabPane tab="Story" key="2" />
+                  <TabPane
+                    tab="Home"
+                    key="1"
+                    style={{ fontFamily: 'LuckiestGuy' }}
+                  />
+                  <TabPane
+                    tab="Story"
+                    key="2"
+                    style={{ fontFamily: 'LuckiestGuy' }}
+                  />
                   <TabPane tab="Karakter" key="3" />
                   <TabPane tab="Lokasi" key="4" />
                   <TabPane tab="Gallery" key="5" />
