@@ -1,0 +1,42 @@
+.headerBackground {
+    background: rgba(251, 176, 64, 0);
+}
+
+.baseContent {
+    align-self: center;
+    background: url('./../../../../images/bg-1.png') 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.logo {
+    float: left;
+    width: 120px;
+    height: 103px;
+    top: 20;
+    left: 0;
+    margin: -20px 24px 16px 0;
+    // background-image: url('./../../../../images/logo-1.png') 100%;
+}
+
+.textMenu {
+    font-family: fantasy;
+    font-size: 14px;
+}
+
+.youtubeContainer {
+    margin-bottom: 8px;
+}
+
+.leftButton {
+    align-items: center;
+    justify-content: center;
+}
+
+.rightButton {
+    align-items: center;
+    justify-content: end;
+}
