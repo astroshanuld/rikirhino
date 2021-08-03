@@ -1,11 +1,9 @@
 import { Button, Col, Image, Layout, Row, Tabs } from 'antd'
 import 'antd/dist/antd.css'
 import React, { useEffect, useState } from 'react'
-import {
-  InstagramOutlined,
-  FacebookOutlined,
-  TwitterOutlined,
-} from '@ant-design/icons'
+import InstagramOutlined from '@ant-design/icons/InstagramOutlined'
+import FacebookOutlined from '@ant-design/icons/FacebookOutlined'
+import TwitterOutlined from '@ant-design/icons/TwitterOutlined'
 import { useMediaQuery } from 'react-responsive'
 import cssHome from 'views/Home/partials/Home.module.scss'
 import SlideDiary from 'views/Home/partials/SlideDiary'
