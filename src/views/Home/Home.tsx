@@ -118,15 +118,42 @@ function Home() {
                   }}
                   tabBarExtraContent={extraButton}
                 >
-                  <TabPane tab="Home" key="1" className={cssHome.menuText} />
-                  <TabPane tab="Story" key="2" className={cssHome.menuText} />
-                  <TabPane tab="Karakter" key="3" />
-                  <TabPane tab="Lokasi" key="4" />
-                  <TabPane tab="Gallery" key="5" />
-                  <TabPane tab="Games" key="6" />
-                  <TabPane tab="Poster" key="7" />
-                  <TabPane tab="Soundtrack" key="8" />
-                  <TabPane tab="Diary Beni" key="9" />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Home</span>}
+                    key="1"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Story</span>}
+                    key="2"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Karakter</span>}
+                    key="3"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Lokasi</span>}
+                    key="4"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Gallery</span>}
+                    key="5"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Games</span>}
+                    key="6"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Poster</span>}
+                    key="7"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Soundtrack</span>}
+                    key="8"
+                  />
+                  <TabPane
+                    tab={<span className={cssHome.menuText}>Diary Beni</span>}
+                    key="9"
+                  />
                 </Tabs>
               </div>
             </Col>
