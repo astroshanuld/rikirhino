@@ -2,12 +2,11 @@ import { Col, Image, Row } from 'antd'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface StoryProps {
-  contHeight: number
+  contHeight: string
 }
 
 function SlideStory(props: StoryProps) {
   const { contHeight } = props
-  const height = contHeight - 13
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
       <Col
@@ -25,7 +24,7 @@ function SlideStory(props: StoryProps) {
         <div className={cssHome.youtubeContainer}>
           <Image
             src="/images/dummy/dummy-story.png"
-            height={height}
+            height={contHeight}
             preview={false}
           />
         </div>

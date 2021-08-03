@@ -4,12 +4,11 @@ import { useState } from 'react'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface KarakterProps {
-  contHeight: number
+  contHeight: string
 }
 
 function SlideKarakter(props: KarakterProps) {
   const { contHeight } = props
-  const height = contHeight - 13
   const [imgIndex, setImgIndex] = useState(1)
 
   const renderImg = () => {
@@ -17,7 +16,7 @@ function SlideKarakter(props: KarakterProps) {
       return (
         <Image
           src="/images/dummy/dummy-karakter.png"
-          height={height}
+          height={contHeight}
           preview={false}
         />
       )
@@ -26,7 +25,7 @@ function SlideKarakter(props: KarakterProps) {
       return (
         <Image
           src="/images/dummy/dummy-karakter2.png"
-          height={height}
+          height={contHeight}
           preview={false}
         />
       )
@@ -35,7 +34,7 @@ function SlideKarakter(props: KarakterProps) {
       return (
         <Image
           src="/images/dummy/dummy-karakter3.png"
-          height={height}
+          height={contHeight}
           preview={false}
         />
       )

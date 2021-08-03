@@ -2,16 +2,7 @@ import { Col, Row } from 'antd'
 import YouTube from 'react-youtube'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
-interface HomeProps {
-  height: number
-}
-
-function SlideHome(props: HomeProps) {
-  const { height } = props
-  const opts = {
-    height: '255',
-  }
-
+function SlideHome() {
   return (
     <Row gutter={[0, 16]}>
       <Col
@@ -30,7 +21,7 @@ function SlideHome(props: HomeProps) {
           <YouTube
             videoId="BG5NPjW7r4U"
             // opts={opts}
-            containerClassName={cssHome.youtubeContainer}
+            className={cssHome.youtubeContainer2}
           />
         </div>
       </Col>

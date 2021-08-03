@@ -3,12 +3,11 @@ import { Button, Col, Image, Row } from 'antd'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface PosterProps {
-  contHeight: number
+  contHeight: string
 }
 
 function SlidePoster(props: PosterProps) {
   const { contHeight } = props
-  const height = contHeight - 13
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
       <Col
@@ -49,7 +48,7 @@ function SlidePoster(props: PosterProps) {
         <div className={cssHome.youtubeContainer}>
           <Image
             src="/images/dummy/dummy-poster.png"
-            height={height}
+            height={contHeight}
             preview={false}
           />
         </div>

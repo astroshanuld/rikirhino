@@ -2,12 +2,12 @@ import { Col, Image, Row } from 'antd'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface DiaryProps {
-  contHeight: number
+  contHeight: string
 }
 
 function SlideDiary(props: DiaryProps) {
   const { contHeight } = props
-  const height = contHeight - 13
+
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
       <Col
@@ -25,7 +25,7 @@ function SlideDiary(props: DiaryProps) {
         <div className={cssHome.youtubeContainer}>
           <Image
             src="/images/dummy/dummy-diarybeni.png"
-            height={height}
+            height={contHeight}
             preview={false}
           />
         </div>

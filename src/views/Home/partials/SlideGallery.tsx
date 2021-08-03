@@ -4,12 +4,11 @@ import { useState } from 'react'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface GalleryProps {
-  contHeight: number
+  contHeight: string
 }
 
 function SlideGallery(props: GalleryProps) {
   const { contHeight } = props
-  const height = contHeight - 13
   const [imgIndex, setImgIndex] = useState(1)
 
   const renderImg = () => {
@@ -17,7 +16,7 @@ function SlideGallery(props: GalleryProps) {
       return (
         <Image
           src="/images/dummy/dummy-gallery.png"
-          height={height}
+          height={contHeight}
           preview={false}
         />
       )
@@ -26,7 +25,7 @@ function SlideGallery(props: GalleryProps) {
       return (
         <Image
           src="/images/dummy/dummy-gallery2.png"
-          height={height}
+          height={contHeight}
           preview={false}
         />
       )
@@ -35,7 +34,7 @@ function SlideGallery(props: GalleryProps) {
       return (
         <Image
           src="/images/dummy/dummy-gallery3.png"
-          height={height}
+          height={contHeight}
           preview={false}
         />
       )

@@ -20,7 +20,7 @@ const { Content, Footer } = Layout
 const { TabPane } = Tabs
 
 function Home() {
-  const [height, setHeight] = useState(250)
+  const [height, setHeight] = useState('65vh')
   const [tabIndex, setTabIndex] = useState('1')
 
   const screenXxl = useMediaQuery({ query: '(min-width: 1600px)' })
@@ -54,21 +54,21 @@ function Home() {
 
   useEffect(() => {
     if (screenXxl) {
-      setHeight(460)
+      setHeight('65vh')
     } else if (screenXl) {
-      setHeight(380)
+      setHeight('65vh')
     } else if (screenLg) {
-      setHeight(665)
+      setHeight('65vh')
     } else if (screenMd) {
-      setHeight(268)
+      setHeight('50vh')
     } else if (screenSm) {
-      setHeight(310)
+      setHeight('50vh')
     }
   })
 
   const checkSlide = () => {
     if (tabIndex === '1') {
-      return <SlideHome height={height} />
+      return <SlideHome />
     }
     if (tabIndex === '2') {
       return <SlideStory contHeight={height} />

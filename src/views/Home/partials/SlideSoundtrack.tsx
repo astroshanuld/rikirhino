@@ -2,12 +2,11 @@ import { Col, Image, Row } from 'antd'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface SoundtrackProps {
-  contHeight: number
+  contHeight: string
 }
 
 function SlideSoundtrack(props: SoundtrackProps) {
   const { contHeight } = props
-  const height = contHeight - 13
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
       <Col
@@ -25,7 +24,7 @@ function SlideSoundtrack(props: SoundtrackProps) {
         <div className={cssHome.youtubeContainer}>
           <Image
             src="/images/dummy/dummy-soundtrack.png"
-            height={height}
+            height={contHeight}
             preview={false}
           />
         </div>
