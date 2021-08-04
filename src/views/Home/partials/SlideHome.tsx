@@ -4,7 +4,6 @@ import YouTube from 'react-youtube'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 function SlideHome() {
-  const screenXxl = useMediaQuery({ query: '(min-width: 1600px)' })
   const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
   const screenLg = useMediaQuery({ query: '(min-width: 992px)' })
   const screenMd = useMediaQuery({ query: '(min-width: 768px)' })
