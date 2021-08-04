@@ -1,8 +1,30 @@
 import { Col, Row } from 'antd'
+import { useMediaQuery } from 'react-responsive'
 import YouTube from 'react-youtube'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 function SlideHome() {
+  const screenXxl = useMediaQuery({ query: '(min-width: 1600px)' })
+  const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
+  const screenLg = useMediaQuery({ query: '(min-width: 992px)' })
+  const screenMd = useMediaQuery({ query: '(min-width: 768px)' })
+  const screenSm = useMediaQuery({ query: '(min-width: 576px)' })
+
+  const checkScreen = () => {
+    if (screenXl) {
+      return cssHome.youtubeContainerXl
+    }
+    if (screenLg) {
+      return cssHome.youtubeContainerLg
+    }
+    if (screenMd) {
+      return cssHome.youtubeContainerMd
+    }
+    if (screenSm) {
+      return cssHome.youtubeContainerSm
+    }
+  }
+
   return (
     <Row gutter={[0, 16]}>
       <Col
@@ -21,7 +43,7 @@ function SlideHome() {
           <YouTube
             videoId="BG5NPjW7r4U"
             // opts={opts}
-            className={cssHome.youtubeContainer2}
+            className={checkScreen()}
           />
         </div>
       </Col>

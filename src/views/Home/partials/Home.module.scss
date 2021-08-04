@@ -19,7 +19,6 @@
     top: 20;
     left: 0;
     margin: -20px 24px 16px 0;
-    // background-image: url('./../../../../images/logo-1.png') 100%;
 }
 
 .textMenu {
@@ -45,8 +44,26 @@
     font-family: LuckiestGuy;
 }
 
-.youtubeContainer2 {
-    height: 50vh;
+.youtubeContainerXl {
+    height: 65vh;
     width: 50vw;
+    margin-bottom: 8px;
+}
+
+.youtubeContainerLg {
+    height: 65vh;
+    width: 70vw;
+    margin-bottom: 8px;
+}
+
+.youtubeContainerMd {
+    height: 45vh;
+    width: 40vw;
+    margin-bottom: 8px;
+}
+
+.youtubeContainerSm {
+    height: 55vh;
+    width: 60vw;
     margin-bottom: 8px;
 }
