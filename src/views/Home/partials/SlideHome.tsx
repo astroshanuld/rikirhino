@@ -47,17 +47,17 @@ function SlideHome() {
   }
 
   const prevButton = () => {
-    if (ytbIndex >= 2) {
+    if (ytbIndex > 0) {
       setYtbIndex(ytbIndex - 1)
-    } else if (ytbIndex === 1) {
-      setYtbIndex(3)
+    } else if (ytbIndex === 0) {
+      setYtbIndex(data.length - 1)
     }
   }
 
   const nextButton = () => {
-    if (ytbIndex <= 2) {
+    if (ytbIndex < data.length - 1) {
       setYtbIndex(ytbIndex + 1)
-    } else if (ytbIndex === 3) {
+    } else if (ytbIndex === data.length - 1) {
       setYtbIndex(1)
     }
   }
