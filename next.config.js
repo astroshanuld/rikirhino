@@ -86,6 +86,8 @@ const fontConfig = withFonts(withSVG(withFilterConflictOrder(sassConfig)))
 
 const imageConfig = withImages(fontConfig)
 
+
+
 module.exports = {
   ...imageConfig,
   images: {

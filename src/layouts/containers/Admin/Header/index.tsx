@@ -15,41 +15,23 @@ function Header() {
 
       <Col xs={12} sm={6} md={12} lg={6} style={{ textAlign: 'right' }}>
         <Space size={10}>
-          {queryProfile?.isLoading ? (
-            <React.Fragment>
-              <Skeleton
-                paragraph={false}
-                title={{ style: { width: 100 } }}
-                loading
-                active
-              />
-              <Skeleton
-                avatar={{ shape: 'circle' }}
-                paragraph={false}
-                loading
-                active
-              />
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <Space
-                direction="vertical"
-                size={2}
-                style={{ textAlign: 'right', marginRight: '10px' }}
-              >
-                <Text bold size={16}>
-                  Hey, &nbsp;
-                  {queryProfile.data.fullName}
-                </Text>
-              </Space>
+          <React.Fragment>
+            <Space
+              direction="vertical"
+              size={2}
+              style={{ textAlign: 'right', marginRight: '10px' }}
+            >
+              <Text bold size={16}>
+                Hai, &nbsp; Udin
+              </Text>
+            </Space>
 
-              {/* START: Avatar profile */}
-              {/* {isEmpty(profile?.data?.photo) ? ( */}
-              <Avatar size={45} icon={<UserOutlined />} />
+            {/* START: Avatar profile */}
+            {/* {isEmpty(profile?.data?.photo) ? ( */}
+            <Avatar size={45} icon={<UserOutlined />} />
 
-              {/* END: Avatar profile */}
-            </React.Fragment>
-          )}
+            {/* END: Avatar profile */}
+          </React.Fragment>
           {/* <Popover
             trigger="click"
             title="Notifikasi"

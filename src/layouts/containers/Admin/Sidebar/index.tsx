@@ -21,7 +21,7 @@ function Sidebar() {
           style={{ width: '100%' }}
         /> */}
         <Text color="#fff" size={16}>
-          Trasmi Insurance
+          Riki Rhino
         </Text>
       </div>
       <MenuSidebar />

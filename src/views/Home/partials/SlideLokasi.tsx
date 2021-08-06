@@ -1,5 +1,8 @@
 import { Col, Image, Row } from 'antd'
+import { useEffect, useState } from 'react'
 import cssHome from 'views/Home/partials/Home.module.scss'
+import renderIf from 'layouts/renderIf'
+import firebase from 'layouts/routes/firebaseClient'
 
 interface LokasiProps {
   contHeight: string
@@ -7,6 +10,18 @@ interface LokasiProps {
 
 function SlideLokasi(props: LokasiProps) {
   const { contHeight } = props
+  const [imgUrl, setImgUrl] = useState('')
+
+  useEffect(() => {
+    const getData = firebase
+      .firestore()
+      .collection('Pages')
+      .doc('Lokasi')
+    getData.onSnapshot(async (querySnapShot) => {
+      setImgUrl(querySnapShot.get('imgUrl'))
+    })
+  })
+
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
       <Col
@@ -22,11 +37,9 @@ function SlideLokasi(props: LokasiProps) {
         }}
       >
         <div className={cssHome.youtubeContainer}>
-          <Image
-            src="/images/dummy/dummy-lokasi.png"
-            height={contHeight}
-            preview={false}
-          />
+          {renderIf(imgUrl !== '')(
+            <Image src={imgUrl} height={contHeight} preview={false} />,
+          )}
         </div>
       </Col>
     </Row>

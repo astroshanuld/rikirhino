@@ -1,4 +1,7 @@
 import { Col, Image, Row } from 'antd'
+import renderIf from 'layouts/renderIf'
+import firebase from 'layouts/routes/firebaseClient'
+import { useEffect, useState } from 'react'
 import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface GamesProps {
@@ -7,6 +10,17 @@ interface GamesProps {
 
 function SlideGames(props: GamesProps) {
   const { contHeight } = props
+  const [imgUrl, setImgUrl] = useState('')
+
+  useEffect(() => {
+    const getData = firebase
+      .firestore()
+      .collection('Pages')
+      .doc('Games')
+    getData.onSnapshot(async (querySnapShot) => {
+      setImgUrl(querySnapShot.get('imgUrl'))
+    })
+  })
 
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
@@ -23,11 +37,9 @@ function SlideGames(props: GamesProps) {
         }}
       >
         <div className={cssHome.youtubeContainer}>
-          <Image
-            src="/images/dummy/dummy-games.png"
-            height={contHeight}
-            preview={false}
-          />
+          {renderIf(imgUrl !== '')(
+            <Image src={imgUrl} height={contHeight} preview={false} />,
+          )}
         </div>
       </Col>
     </Row>

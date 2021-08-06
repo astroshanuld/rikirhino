@@ -1,5 +1,8 @@
 import { Col, Image, Row } from 'antd'
 import cssHome from 'views/Home/partials/Home.module.scss'
+import renderIf from 'layouts/renderIf'
+import firebase from 'layouts/routes/firebaseClient'
+import { useEffect, useState } from 'react'
 
 interface SoundtrackProps {
   contHeight: string
@@ -7,6 +10,18 @@ interface SoundtrackProps {
 
 function SlideSoundtrack(props: SoundtrackProps) {
   const { contHeight } = props
+  const [imgUrl, setImgUrl] = useState('')
+
+  useEffect(() => {
+    const getData = firebase
+      .firestore()
+      .collection('Pages')
+      .doc('Soundtrack')
+    getData.onSnapshot(async (querySnapShot) => {
+      setImgUrl(querySnapShot.get('imgUrl'))
+    })
+  })
+
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
       <Col
@@ -22,11 +37,9 @@ function SlideSoundtrack(props: SoundtrackProps) {
         }}
       >
         <div className={cssHome.youtubeContainer}>
-          <Image
-            src="/images/dummy/dummy-soundtrack.png"
-            height={contHeight}
-            preview={false}
-          />
+          {renderIf(imgUrl !== '')(
+            <Image src={imgUrl} height={contHeight} preview={false} />,
+          )}
         </div>
       </Col>
     </Row>

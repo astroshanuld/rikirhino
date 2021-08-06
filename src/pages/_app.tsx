@@ -7,7 +7,6 @@ import '@nexys/styles/global.scss'
 import useNProgress from '@nexys/hooks/useNProgress/useNProgress'
 import useRefreshStyle from '@nexys/hooks/useRefreshStyle/useRefreshStyle'
 // import useLoadingPage from 'hooks/useLoadingPage/useLoadingPage'
-
 const title = 'Riki Rhino'
 const description = 'Riki Rhino'
 const metaURL = 'https://sharaikios.com'
@@ -24,6 +23,7 @@ function App(props: AppProps) {
       <Head>
         <title>{title}</title>
         <meta name="title" content={title} />
+        <meta charSet="utf-8" />
         <link rel="shortcut icon" href={webIconURL} />
         <meta name="description" content={description} />
         <meta property="og:type" content="website" />

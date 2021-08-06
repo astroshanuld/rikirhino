@@ -1,13 +1,35 @@
-import { Col, Row } from 'antd'
+import Icon from '@ant-design/icons/'
+import { Button, Col, Row } from 'antd'
+import { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import YouTube from 'react-youtube'
 import cssHome from 'views/Home/partials/Home.module.scss'
+import firebase from 'layouts/routes/firebaseClient'
+import renderIf from 'layouts/renderIf'
 
 function SlideHome() {
+  const [ytbIndex, setYtbIndex] = useState(0)
+  const [data, setData] = useState([])
+
   const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
   const screenLg = useMediaQuery({ query: '(min-width: 992px)' })
   const screenMd = useMediaQuery({ query: '(min-width: 768px)' })
   const screenSm = useMediaQuery({ query: '(min-width: 576px)' })
+
+  useEffect(() => {
+    const getData = firebase.firestore().collection('Home')
+    getData.onSnapshot(async (querySnapshot) => {
+      const item = []
+      querySnapshot.forEach((doc) => {
+        const datas = item
+        datas.push({
+          id: doc.id,
+          data: doc.data(),
+        })
+      })
+      setData(item)
+    })
+  }, [ytbIndex])
 
   const checkScreen = () => {
     if (screenXl) {
@@ -24,13 +46,53 @@ function SlideHome() {
     }
   }
 
+  const prevButton = () => {
+    if (ytbIndex >= 2) {
+      setYtbIndex(ytbIndex - 1)
+    } else if (ytbIndex === 1) {
+      setYtbIndex(3)
+    }
+  }
+
+  const nextButton = () => {
+    if (ytbIndex <= 2) {
+      setYtbIndex(ytbIndex + 1)
+    } else if (ytbIndex === 3) {
+      setYtbIndex(1)
+    }
+  }
+
   return (
     <Row gutter={[0, 16]}>
       <Col
-        xl={24}
-        lg={24}
-        md={24}
-        sm={24}
+        xl={2}
+        lg={2}
+        md={2}
+        sm={4}
+        className={cssHome.leftButton}
+        style={{ display: 'flex' }}
+      >
+        <Button
+          type="link"
+          icon={
+            <Icon
+              component={() => (
+                <img
+                  src="./../../../../images/left-button.png"
+                  width={50}
+                  alt="."
+                />
+              )}
+            />
+          }
+          onClick={() => prevButton()}
+        />
+      </Col>
+      <Col
+        xl={20}
+        lg={20}
+        md={20}
+        sm={16}
         flex={1}
         style={{
           display: 'flex',
@@ -39,12 +101,42 @@ function SlideHome() {
         }}
       >
         <div>
-          <YouTube
-            videoId="BG5NPjW7r4U"
-            // opts={opts}
-            className={checkScreen()}
-          />
+          {data.map((item, index) => (
+            <div>
+              {renderIf(index === ytbIndex)(
+                <YouTube videoId={item.data.url} className={checkScreen()} />,
+              )}
+            </div>
+          ))}
         </div>
+      </Col>
+      <Col
+        xl={2}
+        lg={2}
+        md={2}
+        sm={4}
+        className={cssHome.rightButton}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <Button
+          type="link"
+          icon={
+            <Icon
+              component={() => (
+                <img
+                  src="./../../../../images/right-button.png"
+                  width={50}
+                  alt="."
+                />
+              )}
+            />
+          }
+          style={{ display: 'contents' }}
+          onClick={() => nextButton()}
+        />
       </Col>
     </Row>
   )

@@ -1,7 +1,9 @@
 import Icon from '@ant-design/icons/'
 import { Button, Col, Image, Row } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import cssHome from 'views/Home/partials/Home.module.scss'
+import renderIf from 'layouts/renderIf'
+import firebase from 'layouts/routes/firebaseClient'
 
 interface GalleryProps {
   contHeight: string
@@ -9,51 +11,37 @@ interface GalleryProps {
 
 function SlideGallery(props: GalleryProps) {
   const { contHeight } = props
-  const [imgIndex, setImgIndex] = useState(1)
+  const [imgIndex, setImgIndex] = useState(0)
+  const [data, setData] = useState([])
 
-  const renderImg = () => {
-    if (imgIndex === 1) {
-      return (
-        <Image
-          src="/images/dummy/dummy-gallery.png"
-          height={contHeight}
-          preview={false}
-        />
-      )
-    }
-    if (imgIndex === 2) {
-      return (
-        <Image
-          src="/images/dummy/dummy-gallery2.png"
-          height={contHeight}
-          preview={false}
-        />
-      )
-    }
-    if (imgIndex === 3) {
-      return (
-        <Image
-          src="/images/dummy/dummy-gallery3.png"
-          height={contHeight}
-          preview={false}
-        />
-      )
-    }
-  }
+  useEffect(() => {
+    const getData = firebase.firestore().collection('Gallery')
+    getData.onSnapshot(async (querySnapshot) => {
+      const item = []
+      querySnapshot.forEach((doc) => {
+        const datas = item
+        datas.push({
+          id: doc.id,
+          data: doc.data(),
+        })
+      })
+      setData(item)
+    })
+  }, [imgIndex])
 
   const prevButton = () => {
-    if (imgIndex >= 2) {
+    if (imgIndex > 0) {
       setImgIndex(imgIndex - 1)
-    } else if (imgIndex === 1) {
-      setImgIndex(3)
+    } else if (imgIndex === 0) {
+      setImgIndex(data.length - 1)
     }
   }
 
   const nextButton = () => {
-    if (imgIndex <= 2) {
+    if (imgIndex < data.length - 1) {
       setImgIndex(imgIndex + 1)
-    } else if (imgIndex === 3) {
-      setImgIndex(1)
+    } else if (imgIndex === data.length - 1) {
+      setImgIndex(0)
     }
   }
 
@@ -95,7 +83,17 @@ function SlideGallery(props: GalleryProps) {
           justifyContent: 'center',
         }}
       >
-        <div className={cssHome.youtubeContainer}>{renderImg()}</div>
+        {data.map((item, index) => (
+          <div className={cssHome.youtubeContainer}>
+            {renderIf(index === imgIndex)(
+              <Image
+                src={item.data.imgUrl}
+                height={contHeight}
+                preview={false}
+              />,
+            )}
+          </div>
+        ))}
       </Col>
       <Col
         xl={2}
