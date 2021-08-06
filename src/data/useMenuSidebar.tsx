@@ -1,4 +1,3 @@
-import DashboardOutlined from '@ant-design/icons/DashboardOutlined'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import SolutionOutlined from '@ant-design/icons/SolutionOutlined'
 
@@ -15,6 +14,7 @@ function useMenu() {
       id: 'menu1',
       name: 'Edit Pages',
       icon: <SolutionOutlined style={{ fontSize: 16 }} />,
+      url: '',
       submenus: [
         {
           id: '1',
@@ -68,6 +68,7 @@ function useMenu() {
       id: 'menu2',
       name: 'News',
       icon: <SettingOutlined style={{ fontSize: 16 }} />,
+      url: '',
       submenus: [
         {
           id: '3',
