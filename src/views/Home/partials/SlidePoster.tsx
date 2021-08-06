@@ -1,6 +1,9 @@
 import Icon from '@ant-design/icons/'
 import { Button, Col, Image, Row } from 'antd'
 import cssHome from 'views/Home/partials/Home.module.scss'
+import renderIf from 'layouts/renderIf'
+import firebase from 'layouts/routes/firebaseClient'
+import { useEffect, useState } from 'react'
 
 interface PosterProps {
   contHeight: string
@@ -8,6 +11,40 @@ interface PosterProps {
 
 function SlidePoster(props: PosterProps) {
   const { contHeight } = props
+  const [imgIndex, setImgIndex] = useState(0)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const getData = firebase.firestore().collection('Poster')
+    getData.onSnapshot(async (querySnapshot) => {
+      const item = []
+      querySnapshot.forEach((doc) => {
+        const datas = item
+        datas.push({
+          id: doc.id,
+          data: doc.data(),
+        })
+      })
+      setData(item)
+    })
+  }, [imgIndex])
+
+  const prevButton = () => {
+    if (imgIndex > 0) {
+      setImgIndex(imgIndex - 1)
+    } else if (imgIndex === 0) {
+      setImgIndex(data.length - 1)
+    }
+  }
+
+  const nextButton = () => {
+    if (imgIndex < data.length - 1) {
+      setImgIndex(imgIndex + 1)
+    } else if (imgIndex === data.length - 1) {
+      setImgIndex(0)
+    }
+  }
+
   return (
     <Row gutter={[0, 16]} style={{ height: contHeight }}>
       <Col
@@ -31,6 +68,7 @@ function SlidePoster(props: PosterProps) {
               )}
             />
           }
+          onClick={() => prevButton()}
         />
       </Col>
       <Col
@@ -43,15 +81,31 @@ function SlidePoster(props: PosterProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          flexDirection: 'column',
         }}
       >
         <div className={cssHome.youtubeContainer}>
-          <Image
-            src="/images/dummy/dummy-poster.png"
-            height={contHeight}
-            preview={false}
-          />
+          {data.map((item, index) => (
+            <div>
+              {renderIf(index === imgIndex)(
+                <Image src={item.data.imgUrl} height="50vh" preview={false} />,
+              )}
+            </div>
+          ))}
         </div>
+        {data.map((item, index) => (
+          <div>
+            {renderIf(index === imgIndex)(
+              <a
+                href={item.data.imgUrl}
+                className={cssHome.buttonDownload}
+                download
+              >
+                Download
+              </a>,
+            )}
+          </div>
+        ))}
       </Col>
       <Col
         xl={2}
@@ -77,6 +131,7 @@ function SlidePoster(props: PosterProps) {
               )}
             />
           }
+          onClick={() => nextButton()}
           style={{ display: 'contents' }}
         />
       </Col>
