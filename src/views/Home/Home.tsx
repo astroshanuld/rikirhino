@@ -1,4 +1,4 @@
-import { Button, Col, Image, Layout, Row, Tabs } from 'antd'
+import { Affix, Button, Col, Image, Layout, Row, Tabs } from 'antd'
 import 'antd/dist/antd.css'
 import React, { useEffect, useState } from 'react'
 import InstagramOutlined from '@ant-design/icons/InstagramOutlined'
@@ -15,6 +15,7 @@ import SlideLokasi from 'views/Home/partials/SlideLokasi'
 import SlidePoster from 'views/Home/partials/SlidePoster'
 import SlideSoundtrack from 'views/Home/partials/SlideSoundtrack'
 import SlideStory from 'views/Home/partials/SlideStory'
+import SlideNews from 'views/Home/partials/SlideNews'
 
 const { Content, Footer } = Layout
 const { TabPane } = Tabs
@@ -22,6 +23,7 @@ const { TabPane } = Tabs
 function Home() {
   const [height, setHeight] = useState('65vh')
   const [tabIndex, setTabIndex] = useState('1')
+  const [styleMenu, setStyleMenu] = useState({})
 
   const screenXxl = useMediaQuery({ query: '(min-width: 1600px)' })
   const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
@@ -94,73 +96,93 @@ function Home() {
     if (tabIndex === '9') {
       return <SlideDiary contHeight={height} />
     }
+    if (tabIndex === '10') {
+      return <SlideNews contHeight={height} />
+    }
   }
 
   return (
     <div>
-      <Layout className="layout" style={{ height: '100vh' }}>
+      <Layout
+        className="layout"
+        style={tabIndex !== '10' ? { height: '100vh' } : {}}
+      >
         <Content className={cssHome.baseContent}>
-          <Row gutter={[0, 16]}>
-            <Col xl={1} lg={3} md={4} sm={5} style={{ zIndex: 1 }}>
-              <Image
-                preview={false}
-                width={120}
-                src="./../../../../images/logo-1.png"
-              />
-            </Col>
-            <Col xl={22} lg={20} md={19} sm={18}>
-              <div style={{ marginTop: 30 }}>
-                <Tabs
-                  centered
-                  tabBarStyle={{
-                    background: '#fbb040',
-                  }}
-                  activeKey={tabIndex}
-                  onChange={(data) => {
-                    setTabIndex(data)
-                  }}
-                  tabBarExtraContent={extraButton}
-                >
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Home</span>}
-                    key="1"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Story</span>}
-                    key="2"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Karakter</span>}
-                    key="3"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Lokasi</span>}
-                    key="4"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Gallery</span>}
-                    key="5"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Games</span>}
-                    key="6"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Poster</span>}
-                    key="7"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Soundtrack</span>}
-                    key="8"
-                  />
-                  <TabPane
-                    tab={<span className={cssHome.menuText}>Diary Beni</span>}
-                    key="9"
-                  />
-                </Tabs>
-              </div>
-            </Col>
-          </Row>
+          <Affix
+            onChange={(affixed) => {
+              if (affixed) {
+                setStyleMenu({ background: 'rgba(0,0,0,0.8)' })
+              } else {
+                setStyleMenu({})
+              }
+            }}
+          >
+            <Row gutter={[0, 16]} style={styleMenu}>
+              <Col xl={1} lg={3} md={4} sm={5} style={{ zIndex: 1 }}>
+                <Image
+                  preview={false}
+                  width={120}
+                  src="./../../../../images/logo-1.png"
+                />
+              </Col>
+              <Col xl={22} lg={20} md={19} sm={18}>
+                <div style={{ marginTop: 30 }}>
+                  <Tabs
+                    centered
+                    tabBarStyle={{
+                      background: '#fbb040',
+                    }}
+                    activeKey={tabIndex}
+                    onChange={(data) => {
+                      setTabIndex(data)
+                    }}
+                    tabBarExtraContent={extraButton}
+                  >
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Home</span>}
+                      key="1"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Story</span>}
+                      key="2"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Karakter</span>}
+                      key="3"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Lokasi</span>}
+                      key="4"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Gallery</span>}
+                      key="5"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Games</span>}
+                      key="6"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Poster</span>}
+                      key="7"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Soundtrack</span>}
+                      key="8"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>Diary Beni</span>}
+                      key="9"
+                    />
+                    <TabPane
+                      tab={<span className={cssHome.menuText}>News</span>}
+                      key="10"
+                    />
+                  </Tabs>
+                </div>
+              </Col>
+            </Row>
+          </Affix>
           {checkSlide()}
         </Content>
         <Footer style={{ padding: '5px 5px', backgroundColor: '#000000' }}>
