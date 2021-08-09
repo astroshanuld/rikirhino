@@ -1,9 +1,15 @@
-import { Affix, Button, Col, Image, Layout, Row, Tabs } from 'antd'
-import 'antd/dist/antd.css'
-import React, { useEffect, useState } from 'react'
-import InstagramOutlined from '@ant-design/icons/InstagramOutlined'
+import ClockCircleFilled from '@ant-design/icons/ClockCircleFilled'
+import CommentOutlined from '@ant-design/icons/CommentOutlined'
 import FacebookOutlined from '@ant-design/icons/FacebookOutlined'
+import InstagramOutlined from '@ant-design/icons/InstagramOutlined'
 import TwitterOutlined from '@ant-design/icons/TwitterOutlined'
+import { Affix, Button, Card, Col, Image, Input, Layout, Row, Tabs } from 'antd'
+import 'antd/dist/antd.css'
+import Meta from 'antd/lib/card/Meta'
+import TextArea from 'antd/lib/input/TextArea'
+import Modal from 'antd/lib/modal/Modal'
+import _ from 'lodash'
+import React, { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import cssHome from 'views/Home/partials/Home.module.scss'
 import SlideDiary from 'views/Home/partials/SlideDiary'
@@ -12,10 +18,10 @@ import SlideGames from 'views/Home/partials/SlideGames'
 import SlideHome from 'views/Home/partials/SlideHome'
 import SlideKarakter from 'views/Home/partials/SlideKarakter'
 import SlideLokasi from 'views/Home/partials/SlideLokasi'
+import SlideNews from 'views/Home/partials/SlideNews'
 import SlidePoster from 'views/Home/partials/SlidePoster'
 import SlideSoundtrack from 'views/Home/partials/SlideSoundtrack'
 import SlideStory from 'views/Home/partials/SlideStory'
-import SlideNews from 'views/Home/partials/SlideNews'
 
 const { Content, Footer } = Layout
 const { TabPane } = Tabs
@@ -24,6 +30,14 @@ function Home() {
   const [height, setHeight] = useState('65vh')
   const [tabIndex, setTabIndex] = useState('1')
   const [styleMenu, setStyleMenu] = useState({})
+  const [modalVisible, setModalVisible] = useState(false)
+  const [isLoadingModal, setIsLoadingModal] = useState(true)
+  const [modalWidth, setModalWidth] = useState('')
+  const [modalTitle, setModalTitle] = useState('')
+  const [modalDesc, setModalDesc] = useState('')
+  const [modalThumb, setModalThumb] = useState('')
+  const [modalTime, setModalTime] = useState({ seconds: 0 })
+  const [modalComments, setModalComments] = useState([])
 
   const screenXxl = useMediaQuery({ query: '(min-width: 1600px)' })
   const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
@@ -38,6 +52,7 @@ function Home() {
         shape="circle"
         icon={<InstagramOutlined />}
         style={{ margin: '0px 5px' }}
+        onClick={() => console.log(modalComments)}
       />
       <Button
         type="dashed"
@@ -97,7 +112,29 @@ function Home() {
       return <SlideDiary contHeight={height} />
     }
     if (tabIndex === '10') {
-      return <SlideNews contHeight={height} />
+      return (
+        <SlideNews
+          setModalVisible={setModalVisible}
+          setModalWidth={setModalWidth}
+          setModalTitle={setModalTitle}
+          setModalDesc={setModalDesc}
+          setModalThumb={setModalThumb}
+          setModalTime={setModalTime}
+          setIsLoadingModal={setIsLoadingModal}
+          setModalComments={setModalComments}
+        />
+      )
+    }
+  }
+
+  function RenderComments() {
+    if (modalComments.length !== 0) {
+      modalComments.map((item, index) => (
+        <Card style={{ margin: '5px 0px ' }}>
+          <h4>{item.data.name}</h4>
+          <p>{item.data.comment}</p>
+        </Card>
+      ))
     }
   }
 
@@ -218,6 +255,77 @@ function Home() {
           </Row>
         </Footer>
       </Layout>
+
+      <Modal
+        centered
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+        width={modalWidth}
+      >
+        <div style={{ margin: 20 }}>
+          <Card loading={isLoadingModal} style={{ marginBottom: 5 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginBottom: 73,
+              }}
+            >
+              <Image src={modalThumb} width="70%" />
+            </div>
+            <div>
+              <Meta
+                title={<h2>{modalTitle}</h2>}
+                description={
+                  <span>
+                    <CommentOutlined />
+                    &nbsp;9,999&nbsp;&nbsp;
+                    <ClockCircleFilled />
+                    &nbsp;
+                    {new Date(modalTime.seconds * 1000).toLocaleDateString(
+                      'en-IN',
+                      {
+                        year: 'numeric',
+                        month: 'long',
+                        day: '2-digit',
+                      },
+                    )}
+                  </span>
+                }
+                style={{ marginBottom: 10 }}
+              />
+              {modalDesc}
+            </div>
+          </Card>
+          <Card>
+            <h3>Comments...</h3>
+            {!_.isEmpty(modalComments) ? (
+              modalComments.map((item) => {
+                return (
+                  <Card style={{ margin: '5px 0px ' }} key={item.name}>
+                    <h4>{item.data.name}</h4>
+                    <p>{item.data.comment}</p>
+                  </Card>
+                )
+              })
+            ) : (
+              <React.Fragment />
+            )}
+            <h3 style={{ marginTop: 50 }}>Add comments...</h3>
+            <Input placeholder="Your name..." />
+            <TextArea
+              showCount
+              maxLength={100}
+              placeholder="Your comments..."
+              style={{ marginTop: 10 }}
+            />
+            <Button type="primary" shape="round" style={{ marginTop: 20 }}>
+              Sent
+            </Button>
+          </Card>
+        </div>
+      </Modal>
     </div>
   )
 }

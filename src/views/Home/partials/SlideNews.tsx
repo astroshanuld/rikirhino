@@ -1,17 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
 import ClockCircleFilled from '@ant-design/icons/ClockCircleFilled'
+import CommentOutlined from '@ant-design/icons/CommentOutlined'
 import { Card, Col, Row } from 'antd'
 import Meta from 'antd/lib/card/Meta'
-import { useEffect, useState } from 'react'
 import firebase from 'layouts/routes/firebaseClient'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 
-interface StoryProps {
-  contHeight: string
+interface NewsProps {
+  setModalVisible: Dispatch<SetStateAction<boolean>>
+  setModalWidth: Dispatch<SetStateAction<string>>
+  setModalTitle: Dispatch<SetStateAction<string>>
+  setModalDesc: Dispatch<SetStateAction<string>>
+  setModalThumb: Dispatch<SetStateAction<string>>
+  setModalTime: Dispatch<SetStateAction<object>>
+  setIsLoadingModal: Dispatch<SetStateAction<boolean>>
+  setModalComments: Dispatch<SetStateAction<object>>
 }
 
-function SlideNews(props: StoryProps) {
-  const { contHeight } = props
+function SlideNews(props: NewsProps) {
+  const {
+    setModalVisible,
+    setModalWidth,
+    setModalTitle,
+    setModalDesc,
+    setModalThumb,
+    setModalTime,
+    setIsLoadingModal,
+    setModalComments,
+  } = props
   const [width, setWidth] = useState('')
   const [data, setData] = useState([])
 
@@ -37,16 +55,52 @@ function SlideNews(props: StoryProps) {
 
     if (screenXxl) {
       setWidth('80vw')
+      setModalWidth('80vw')
     } else if (screenXl) {
       setWidth('80vw')
+      setModalWidth('80vw')
     } else if (screenLg) {
       setWidth('80vw')
+      setModalWidth('80vw')
     } else if (screenMd) {
       setWidth('80vw')
+      setModalWidth('80vw')
     } else if (screenSm) {
       setWidth('80vw')
+      setModalWidth('80vw')
     }
   })
+
+  const getDataModal = (docno: string) => {
+    setModalVisible(true)
+    const getData = firebase
+      .firestore()
+      .collection('Posts')
+      .doc(docno)
+    getData.onSnapshot(async (querySnapShot) => {
+      setModalTitle(querySnapShot.get('title'))
+      setModalDesc(querySnapShot.get('description'))
+      setModalThumb(querySnapShot.get('thumbnail'))
+      setModalTime(querySnapShot.get('createdDate'))
+      setIsLoadingModal(false)
+    })
+    const getComments = firebase
+      .firestore()
+      .collection('Posts')
+      .doc('r87p9xi8CCUgoyuLAVWp')
+      .collection('comments')
+    getComments.onSnapshot(async (querySnapshot) => {
+      const item = []
+      querySnapshot.forEach((doc) => {
+        const datas = item
+        datas.push({
+          id: doc.id,
+          data: doc.data(),
+        })
+      })
+      setModalComments(item)
+    })
+  }
 
   return (
     <Row gutter={[0, 16]}>
@@ -63,13 +117,19 @@ function SlideNews(props: StoryProps) {
         }}
       >
         {data.map((item, index) => (
-          <Card hoverable style={{ width, marginBottom: 10 }}>
+          <Card
+            hoverable
+            style={{ width, marginBottom: 10 }}
+            onClick={() => getDataModal(item.id)}
+          >
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div style={{ width: '60%' }}>
                 <Meta
                   title={item.data.title}
                   description={
                     <span>
+                      <CommentOutlined />
+                      &nbsp;{item.data.commentCounter}&nbsp;&nbsp;
                       <ClockCircleFilled />
                       &nbsp;
                       {new Date(
