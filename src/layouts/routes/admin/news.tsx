@@ -4,6 +4,10 @@ const AdminContainer = dynamic(() => import('layouts/containers/Admin'))
 
 const routes = [
   {
+    path: '/news/:id',
+    exact: true,
+  },
+  {
     path: '/admin/news',
     layout: AdminContainer,
     exact: true,
