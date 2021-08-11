@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
 import ClockCircleFilled from '@ant-design/icons/ClockCircleFilled'
@@ -64,6 +65,7 @@ function SlideNews() {
             hoverable
             style={{ width, marginBottom: 10 }}
             onClick={() => router.push(`/news/${encodeURIComponent(item.id)}`)}
+            key={index}
           >
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div style={{ width: '60%' }}>

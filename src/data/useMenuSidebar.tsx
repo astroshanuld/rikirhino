@@ -71,14 +71,14 @@ function useMenu() {
       url: '',
       submenus: [
         {
-          id: '3',
+          id: '1',
           name: 'News List',
-          url: '/admin/settings/account',
+          url: '/admin/news/',
         },
         {
-          id: '4',
+          id: '2',
           name: 'Create News',
-          url: '/admin/settings/master-data',
+          url: '/admin/news/compose',
         },
       ],
     },
