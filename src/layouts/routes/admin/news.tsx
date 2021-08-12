@@ -18,7 +18,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/admin/news/edit/:id',
+    path: '/admin/news/compose/:id',
     layout: AdminContainer,
     exact: true,
   },

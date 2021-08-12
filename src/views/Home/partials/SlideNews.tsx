@@ -86,7 +86,9 @@ function SlideNews() {
                   }
                   style={{ marginBottom: 2 }}
                 />
-                {item.data.description}
+                <div
+                  dangerouslySetInnerHTML={{ __html: item.data.description }}
+                />
               </div>
               <div
                 style={{

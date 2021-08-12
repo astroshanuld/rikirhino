@@ -1,8 +1,19 @@
 /* eslint-disable react/destructuring-assignment */
 import cssContent from '@nexys/components/Content/Content.module.scss'
-import { Col, PageHeader, Row, Space, Table, Tag } from 'antd'
+import {
+  Alert,
+  Button,
+  Col,
+  message,
+  PageHeader,
+  Row,
+  Space,
+  Table,
+  Tag,
+} from 'antd'
 import firebase from 'layouts/routes/firebaseClient'
 import _ from 'lodash'
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
 function News() {
@@ -10,6 +21,11 @@ function News() {
   const [dataItem, setDataItem] = useState([])
   const lastData = useRef([])
   const [isLoadingTable, setIsLoadingTable] = useState(true)
+  const [idDelete, setIdDelete] = useState('')
+  const [titleDelete, setTitleDelete] = useState('')
+
+  const getData = firebase.firestore().collection('Posts')
+  const router = useRouter()
 
   const getDataItem = () => {
     if (!_.isEmpty(data)) {
@@ -17,6 +33,7 @@ function News() {
       data.forEach((x, index) => {
         const y = {
           key: index + 1,
+          id: `${x.id}|${x.data.title}`,
           title: x.data.title,
           status: x.data.status,
         }
@@ -29,7 +46,6 @@ function News() {
 
   useEffect(() => {
     if (data !== lastData.current) {
-      const getData = firebase.firestore().collection('Posts')
       getData.onSnapshot(async (querySnapshot) => {
         const item = []
         querySnapshot.forEach((doc) => {
@@ -48,18 +64,46 @@ function News() {
     }, 5000)
   }, [data, dataItem])
 
+  const alertClose = () => {
+    setTitleDelete('')
+    setIdDelete('')
+  }
+
+  const setDelete = (id: string) => {
+    const idExp = id.split('|')
+    setIdDelete(idExp[0])
+    setTitleDelete(idExp[1])
+  }
+
+  const setEdit = (id: string) => {
+    const idExp = id.split('|')
+    router.push(`/admin/news/compose/${idExp[0]}`)
+  }
+
+  const doDelete = async () => {
+    await getData
+      .doc(idDelete)
+      .delete()
+      .then(() => {
+        setIdDelete('')
+        setTitleDelete('')
+        setIsLoadingTable(true)
+        message.success('News has been deleted!')
+      })
+  }
+
   const columns = [
     {
       title: 'Title',
       dataIndex: 'title',
       key: 'title',
-      render: (text) => <a>{text}</a>,
+      render: (text: string) => <a>{text}</a>,
     },
     {
       title: 'Status',
       key: 'status',
       dataIndex: 'status',
-      render: (status) => {
+      render: (status: string) => {
         const color = status === 'Published' ? 'green' : 'volcano'
         return (
           <Tag color={color} key={status}>
@@ -71,21 +115,54 @@ function News() {
     {
       title: 'Action',
       key: 'action',
-      render: () => (
+      dataIndex: 'id',
+      render: (x: string) => (
         <Space size="middle">
-          <a>Edit</a>
-          <a>Delete</a>
+          <Button type="link" onClick={() => setEdit(x)}>
+            Edit
+          </Button>
+          <Button type="link" onClick={() => setDelete(x)}>
+            Delete
+          </Button>
         </Space>
       ),
     },
   ]
+
+  const renderActions = () => {
+    if (idDelete !== '' && titleDelete !== '') {
+      const desc = `Are you sure to delete news entitled ${titleDelete} ?`
+      return (
+        <Alert
+          message="Delete News"
+          description={desc}
+          type="error"
+          action={
+            <Space direction="vertical">
+              <Button size="small" type="primary" onClick={() => doDelete()}>
+                Delete
+              </Button>
+              <Button
+                size="small"
+                danger
+                type="ghost"
+                onClick={() => alertClose()}
+              >
+                Decline
+              </Button>
+            </Space>
+          }
+        />
+      )
+    }
+  }
 
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="middle">
       <div id={cssContent.customPageHeader}>
         <PageHeader title="News" subTitle="All News" />
       </div>
-
+      {renderActions()}
       <Row gutter={16}>
         <Col xs={24} sm={24} md={24} lg={24}>
           <div

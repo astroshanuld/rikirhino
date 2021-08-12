@@ -1,3 +1,3 @@
-import Compose from 'views/Admin/News/Compose'
+import { FormAdd } from 'views/Admin/News/Compose'
 
-export default Compose
+export default FormAdd

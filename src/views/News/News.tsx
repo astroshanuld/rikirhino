@@ -176,7 +176,7 @@ function Home(props: any) {
                     }
                     style={{ marginBottom: 10 }}
                   />
-                  {desc}
+                  <div dangerouslySetInnerHTML={{ __html: desc }} />
                 </div>
               </Card>
             </Col>
