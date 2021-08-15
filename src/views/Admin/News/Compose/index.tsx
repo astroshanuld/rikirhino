@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-newline */
 /* eslint-disable react/prop-types */
 import UploadOutlined from '@ant-design/icons/UploadOutlined'
 import UserOutlined from '@ant-design/icons/UserOutlined'
@@ -15,6 +16,7 @@ import {
 } from 'antd'
 import { Formik } from 'formik'
 import firebase from 'layouts/routes/firebaseClient'
+import _ from 'lodash'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -25,25 +27,35 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 interface ComposeProps {
   initialValues: any
-  onSubmit: (values: object, actions) => void
+  onSubmit: (values: object, actions, image: object, imageName: string) => void
   isEdit?: boolean
   isLoading: boolean
 }
 
 function Compose(props: ComposeProps) {
   const { initialValues, onSubmit, isEdit, isLoading } = props
+  const [image, setImage] = useState({})
+  const [imageName, setImageName] = useState('')
 
   const propsImage = {
     name: 'file',
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text',
     },
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
+        // console.log(info)
       }
       if (info.file.status === 'done') {
+        // const storage = firebase.storage()
+        // storage
+        //   .ref('images')
+        //   .child(info.file.name)
+        //   .put(info.fileList[0].originFileObj)
+        const image = info.fileList[0].originFileObj
+        const imageName = info.file.name
+        setImage(image)
+        setImageName(imageName)
         message.success(`${info.file.name} file uploaded successfully`)
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
@@ -73,7 +85,9 @@ function Compose(props: ComposeProps) {
           initialValues={initialValues}
           enableReinitialize
           validationSchema={FormValidation}
-          onSubmit={(values, actions) => onSubmit(values, actions)}
+          onSubmit={(values, actions) =>
+            onSubmit(values, actions, image, imageName)
+          }
         >
           {(formikProps) => (
             <div>
@@ -84,6 +98,9 @@ function Compose(props: ComposeProps) {
                     style={{ marginTop: 8, marginBottom: 8 }}
                   >
                     <h3>Title</h3>
+                    {/* <Button onClick={() => console.log(imageName)}>
+                      DEV MAGIC BUTTON
+                    </Button> */}
                     <Input
                       size="large"
                       placeholder="Input title here ..."
@@ -140,17 +157,39 @@ function Compose(props: ComposeProps) {
 
 function FormAdd() {
   const getData = firebase.firestore().collection('Posts')
+  const storage = firebase.storage()
   const router = useRouter()
 
-  const goSubmit = (values, actions) => {
+  const goSubmit = (values, actions, image, imageName) => {
     actions.resetForm()
-    getData.add({
-      title: values.title,
-      description: values.description,
-      thumbnail: values.thumbnail,
-      status: values.status,
-      createdDate: firebase.firestore.Timestamp.now(),
-    })
+    if (!_.isEmpty(image)) {
+      storage
+        .ref('images')
+        .child(imageName)
+        .put(image)
+        .then((snapshot) => {
+          snapshot.ref.getDownloadURL().then((url) => {
+            // console.log(url)
+            getData.add({
+              title: values.title,
+              description: values.description,
+              thumbnail: url,
+              thumbPath: `/images/${imageName}`,
+              status: values.status,
+              createdDate: firebase.firestore.Timestamp.now(),
+            })
+          })
+        })
+    } else {
+      getData.add({
+        title: values.title,
+        description: values.description,
+        thumbnail: values.thumbnail,
+        thumbPath: '',
+        status: values.status,
+        createdDate: firebase.firestore.Timestamp.now(),
+      })
+    }
     router.push('/admin/news')
   }
 
@@ -162,7 +201,9 @@ function FormAdd() {
         thumbnail: '/images/default-image.png',
         status: 'Draft',
       }}
-      onSubmit={(values, actions) => goSubmit(values, actions)}
+      onSubmit={(values, actions, image, imageName) =>
+        goSubmit(values, actions, image, imageName)
+      }
       isLoading={false}
     />
   )

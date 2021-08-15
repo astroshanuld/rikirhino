@@ -23,8 +23,10 @@ function News() {
   const [isLoadingTable, setIsLoadingTable] = useState(true)
   const [idDelete, setIdDelete] = useState('')
   const [titleDelete, setTitleDelete] = useState('')
+  const [pathDelete, setPathDelete] = useState('')
 
   const getData = firebase.firestore().collection('Posts')
+  const storage = firebase.storage().ref()
   const router = useRouter()
 
   const getDataItem = () => {
@@ -33,7 +35,7 @@ function News() {
       data.forEach((x, index) => {
         const y = {
           key: index + 1,
-          id: `${x.id}|${x.data.title}`,
+          id: `${x.id}|${x.data.title}|${x.data.thumbPath}`,
           title: x.data.title,
           status: x.data.status,
         }
@@ -73,6 +75,7 @@ function News() {
     const idExp = id.split('|')
     setIdDelete(idExp[0])
     setTitleDelete(idExp[1])
+    setPathDelete(idExp[2])
   }
 
   const setEdit = (id: string) => {
@@ -81,15 +84,43 @@ function News() {
   }
 
   const doDelete = async () => {
-    await getData
-      .doc(idDelete)
-      .delete()
-      .then(() => {
-        setIdDelete('')
-        setTitleDelete('')
-        setIsLoadingTable(true)
-        message.success('News has been deleted!')
-      })
+    if (pathDelete !== '') {
+      await storage
+        .child(pathDelete)
+        .delete()
+        .then(() => {
+          getData
+            .doc(idDelete)
+            .delete()
+            .then(() => {
+              setIdDelete('')
+              setPathDelete('')
+              setTitleDelete('')
+              setIsLoadingTable(true)
+              message.success('News has been deleted!')
+            })
+        })
+    } else {
+      await getData
+        .doc(idDelete)
+        .delete()
+        .then(() => {
+          setIdDelete('')
+          setPathDelete('')
+          setTitleDelete('')
+          setIsLoadingTable(true)
+          message.success('News has been deleted!')
+        })
+    }
+    // await getData
+    //   .doc(idDelete)
+    //   .delete()
+    //   .then(() => {
+    //     setIdDelete('')
+    //     setTitleDelete('')
+    //     setIsLoadingTable(true)
+    //     message.success('News has been deleted!')
+    //   })
   }
 
   const columns = [
