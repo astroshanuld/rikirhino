@@ -17,7 +17,6 @@ import {
 } from 'antd'
 import { Formik } from 'formik'
 import firebase from 'layouts/routes/firebaseClient'
-import _ from 'lodash'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -81,9 +80,7 @@ function Compose(props: ComposeProps) {
           initialValues={initialValues}
           enableReinitialize
           validationSchema={FormValidation}
-          onSubmit={(values, actions) =>
-            onSubmit(values, actions, image, imageName)
-          }
+          onSubmit={(values, actions) => onSubmit(values, actions)}
         >
           {(formikProps) => (
             <div>
@@ -160,11 +157,11 @@ function Compose(props: ComposeProps) {
 }
 
 function FormAdd() {
-  const getData = firebase.firestore().collection('Posts')
-  const storage = firebase.storage()
-  const router = useRouter()
+  // const getData = firebase.firestore().collection('Posts')
+  // const storage = firebase.storage()
+  // const router = useRouter()
 
-  const goSubmit = (values, actions, image, imageName) => {
+  const goSubmit = (values, actions) => {
     // actions.resetForm()
     // if (!_.isEmpty(image)) {
     //   storage
@@ -205,9 +202,7 @@ function FormAdd() {
         thumbnail: '/images/default-image.png',
         status: 'Draft',
       }}
-      onSubmit={(values, actions, image, imageName) =>
-        goSubmit(values, actions, image, imageName)
-      }
+      onSubmit={(values, actions) => goSubmit(values, actions)}
       isLoading={false}
     />
   )
@@ -223,8 +218,8 @@ function FormEdit(props: any) {
   const [isLoading, setIsLoading] = useState(true)
 
   const getData = firebase.firestore().collection('Posts')
-  const storage = firebase.storage()
-  const router = useRouter()
+  // const storage = firebase.storage()
+  // const router = useRouter()
   const id = pageProps?.query?.id
   const takeData = getData.doc(id)
 
@@ -239,7 +234,7 @@ function FormEdit(props: any) {
     })
   })
 
-  const goSubmit = (values, actions, image, imageName) => {
+  const goSubmit = (values, actions) => {
     // actions.resetForm()
     // if (!_.isEmpty(image) && editThumbPath !== '') {
     //   storage
@@ -315,9 +310,7 @@ function FormEdit(props: any) {
         status: editStat,
       }}
       isEdit
-      onSubmit={(values, actions, image, imageName) =>
-        goSubmit(values, actions, image, imageName)
-      }
+      onSubmit={(values, actions) => goSubmit(values, actions)}
       isLoading={isLoading}
     />
   )
