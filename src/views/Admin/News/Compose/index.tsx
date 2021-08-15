@@ -28,15 +28,14 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 interface ComposeProps {
   initialValues: any
-  onSubmit: (values: object, actions, image: object, imageName: string) => void
+  onSubmit: (values: object, actions) => void
   isEdit?: boolean
   isLoading: boolean
 }
 
 function Compose(props: ComposeProps) {
   const { initialValues, onSubmit, isEdit, isLoading } = props
-  const [image, setImage] = useState({})
-  const [imageName, setImageName] = useState('')
+  const [thumbUrl, setThumbUrl] = useState('')
 
   const propsImage = {
     name: 'file',
@@ -48,15 +47,11 @@ function Compose(props: ComposeProps) {
         // console.log(info)
       }
       if (info.file.status === 'done') {
-        // const storage = firebase.storage()
-        // storage
-        //   .ref('images')
-        //   .child(info.file.name)
-        //   .put(info.fileList[0].originFileObj)
-        const image = info.fileList[0].originFileObj
-        const imageName = info.file.name
-        setImage(image)
-        setImageName(imageName)
+        const storage = firebase.storage()
+        storage
+          .ref('images')
+          .child(info.file.name)
+          .put(info.fileList[0].originFileObj)
         message.success(`${info.file.name} file uploaded successfully`)
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`)
@@ -170,36 +165,36 @@ function FormAdd() {
   const router = useRouter()
 
   const goSubmit = (values, actions, image, imageName) => {
-    actions.resetForm()
-    if (!_.isEmpty(image)) {
-      storage
-        .ref('images')
-        .child(imageName)
-        .put(image)
-        .then((snapshot) => {
-          snapshot.ref.getDownloadURL().then((url) => {
-            // console.log(url)
-            getData.add({
-              title: values.title,
-              description: values.description,
-              thumbnail: url,
-              thumbPath: `/images/${imageName}`,
-              status: values.status,
-              createdDate: firebase.firestore.Timestamp.now(),
-            })
-          })
-        })
-    } else {
-      getData.add({
-        title: values.title,
-        description: values.description,
-        thumbnail: values.thumbnail,
-        thumbPath: '',
-        status: values.status,
-        createdDate: firebase.firestore.Timestamp.now(),
-      })
-    }
-    router.push('/admin/news')
+    // actions.resetForm()
+    // if (!_.isEmpty(image)) {
+    //   storage
+    //     .ref('images')
+    //     .child(imageName)
+    //     .put(image)
+    //     .then((snapshot) => {
+    //       snapshot.ref.getDownloadURL().then((url) => {
+    //         // console.log(url)
+    //         getData.add({
+    //           title: values.title,
+    //           description: values.description,
+    //           thumbnail: url,
+    //           thumbPath: `/images/${imageName}`,
+    //           status: values.status,
+    //           createdDate: firebase.firestore.Timestamp.now(),
+    //         })
+    //       })
+    //     })
+    // } else {
+    //   getData.add({
+    //     title: values.title,
+    //     description: values.description,
+    //     thumbnail: values.thumbnail,
+    //     thumbPath: '',
+    //     status: values.status,
+    //     createdDate: firebase.firestore.Timestamp.now(),
+    //   })
+    // }
+    // router.push('/admin/news')
   }
 
   return (
@@ -245,69 +240,69 @@ function FormEdit(props: any) {
   })
 
   const goSubmit = (values, actions, image, imageName) => {
-    actions.resetForm()
-    if (!_.isEmpty(image) && editThumbPath !== '') {
-      storage
-        .ref()
-        .child(editThumbPath)
-        .delete()
-        .then(() => {
-          storage
-            .ref('images')
-            .child(imageName)
-            .put(image)
-            .then((snapshot) => {
-              snapshot.ref.getDownloadURL().then((url) => {
-                // console.log(url)
-                const push = {
-                  title: values.title,
-                  description: values.description,
-                  status: values.status,
-                  thumbnail: url,
-                  thumbPath: `/images/${imageName}`,
-                  createdDate: firebase.firestore.Timestamp.now(),
-                }
-                takeData.set(push)
-                router.push('/admin/news')
-                message.success('Success edit News')
-              })
-            })
-        })
-    }
-    if (!_.isEmpty(image) && editThumbPath === '') {
-      storage
-        .ref('images')
-        .child(imageName)
-        .put(image)
-        .then((snapshot) => {
-          snapshot.ref.getDownloadURL().then((url) => {
-            // console.log(url)
-            const push = {
-              title: values.title,
-              description: values.description,
-              status: values.status,
-              thumbnail: url,
-              thumbPath: `/images/${imageName}`,
-              createdDate: firebase.firestore.Timestamp.now(),
-            }
-            takeData.set(push)
-            router.push('/admin/news')
-            message.success('Success edit News')
-          })
-        })
-    } else {
-      const push = {
-        title: values.title,
-        description: values.description,
-        status: values.status,
-        thumbnail: values.thumbnail,
-        thumbPath: values.thumbPath,
-        createdDate: firebase.firestore.Timestamp.now(),
-      }
-      takeData.set(push)
-      router.push('/admin/news')
-      message.success('Success edit News')
-    }
+    // actions.resetForm()
+    // if (!_.isEmpty(image) && editThumbPath !== '') {
+    //   storage
+    //     .ref()
+    //     .child(editThumbPath)
+    //     .delete()
+    //     .then(() => {
+    //       storage
+    //         .ref('images')
+    //         .child(imageName)
+    //         .put(image)
+    //         .then((snapshot) => {
+    //           snapshot.ref.getDownloadURL().then((url) => {
+    //             // console.log(url)
+    //             const push = {
+    //               title: values.title,
+    //               description: values.description,
+    //               status: values.status,
+    //               thumbnail: url,
+    //               thumbPath: `/images/${imageName}`,
+    //               createdDate: firebase.firestore.Timestamp.now(),
+    //             }
+    //             takeData.set(push)
+    //             router.push('/admin/news')
+    //             message.success('Success edit News')
+    //           })
+    //         })
+    //     })
+    // }
+    // if (!_.isEmpty(image) && editThumbPath === '') {
+    //   storage
+    //     .ref('images')
+    //     .child(imageName)
+    //     .put(image)
+    //     .then((snapshot) => {
+    //       snapshot.ref.getDownloadURL().then((url) => {
+    //         // console.log(url)
+    //         const push = {
+    //           title: values.title,
+    //           description: values.description,
+    //           status: values.status,
+    //           thumbnail: url,
+    //           thumbPath: `/images/${imageName}`,
+    //           createdDate: firebase.firestore.Timestamp.now(),
+    //         }
+    //         takeData.set(push)
+    //         router.push('/admin/news')
+    //         message.success('Success edit News')
+    //       })
+    //     })
+    // } else {
+    //   const push = {
+    //     title: values.title,
+    //     description: values.description,
+    //     status: values.status,
+    //     thumbnail: values.thumbnail,
+    //     thumbPath: values.thumbPath,
+    //     createdDate: firebase.firestore.Timestamp.now(),
+    //   }
+    //   takeData.set(push)
+    //   router.push('/admin/news')
+    //   message.success('Success edit News')
+    // }
   }
 
   return (
