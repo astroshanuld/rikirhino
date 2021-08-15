@@ -35,6 +35,7 @@ interface ComposeProps {
 function Compose(props: ComposeProps) {
   const { initialValues, onSubmit, isEdit, isLoading } = props
   const [thumbUrl, setThumbUrl] = useState('')
+  const storage = firebase.storage()
 
   const propsImage = {
     name: 'file',
@@ -46,14 +47,18 @@ function Compose(props: ComposeProps) {
         console.log(info)
       }
       if (info.file.status === 'done') {
-        const storage = firebase.storage()
         storage
           .ref('images')
           .child(info.file.name)
           .put(info.fileList[0].originFileObj)
         message.success(`${info.file.name} file uploaded successfully`)
       } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`)
+        // message.error(`${info.file.name} file upload failed.`)
+        storage
+          .ref('images')
+          .child(info.file.name)
+          .put(info.fileList[0].originFileObj)
+        message.success(`${info.file.name} file uploaded successfully`)
       }
     },
   }
