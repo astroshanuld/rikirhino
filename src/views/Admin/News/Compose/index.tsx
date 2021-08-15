@@ -43,7 +43,7 @@ function Compose(props: ComposeProps) {
     },
     onChange(info) {
       if (info.file.status !== 'uploading') {
-        // console.log(info)
+        console.log(info)
       }
       if (info.file.status === 'done') {
         const storage = firebase.storage()
