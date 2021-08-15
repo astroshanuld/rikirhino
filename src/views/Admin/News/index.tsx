@@ -112,15 +112,6 @@ function News() {
           message.success('News has been deleted!')
         })
     }
-    // await getData
-    //   .doc(idDelete)
-    //   .delete()
-    //   .then(() => {
-    //     setIdDelete('')
-    //     setTitleDelete('')
-    //     setIsLoadingTable(true)
-    //     message.success('News has been deleted!')
-    //   })
   }
 
   const columns = [

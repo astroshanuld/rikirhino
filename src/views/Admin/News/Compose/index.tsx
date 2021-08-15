@@ -6,6 +6,7 @@ import cssContent from '@nexys/components/Content/Content.module.scss'
 import {
   Button,
   Col,
+  Image,
   Input,
   message,
   PageHeader,
@@ -118,8 +119,16 @@ function Compose(props: ComposeProps) {
                   >
                     <h3>Thumbnail</h3>
                     <Upload {...propsImage}>
-                      <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                      <Button icon={<UploadOutlined />}>
+                        Change Thumbnail
+                      </Button>
                     </Upload>
+                    <br />
+                    {isEdit ? (
+                      <Image src={formikProps.values.thumbnail} width={200} />
+                    ) : (
+                      <React.Fragment />
+                    )}
                     <br />
                   </div>
                 </Col>
@@ -214,9 +223,12 @@ function FormEdit(props: any) {
   const [editTitle, setEditTitle] = useState('')
   const [editDesc, setEditDesc] = useState('')
   const [editStat, setEditStat] = useState('Draft')
+  const [editThumb, setEditThumb] = useState('')
+  const [editThumbPath, setEditThumbPath] = useState('')
   const [isLoading, setIsLoading] = useState(true)
 
   const getData = firebase.firestore().collection('Posts')
+  const storage = firebase.storage()
   const router = useRouter()
   const id = pageProps?.query?.id
   const takeData = getData.doc(id)
@@ -226,22 +238,76 @@ function FormEdit(props: any) {
       setEditTitle(querySnapShot.get('title'))
       setEditDesc(querySnapShot.get('description'))
       setEditStat(querySnapShot.get('status'))
+      setEditThumb(querySnapShot.get('thumbnail'))
+      setEditThumbPath(querySnapShot.get('thumbPath'))
       setIsLoading(false)
     })
   })
 
-  const goSubmit = (values, actions) => {
+  const goSubmit = (values, actions, image, imageName) => {
     actions.resetForm()
-    const data = {
-      title: values.title,
-      description: values.description,
-      status: values.status,
-      thumbnail: values.thumbnail,
-      createdDate: firebase.firestore.Timestamp.now(),
+    if (!_.isEmpty(image) && editThumbPath !== '') {
+      storage
+        .ref()
+        .child(editThumbPath)
+        .delete()
+        .then(() => {
+          storage
+            .ref('images')
+            .child(imageName)
+            .put(image)
+            .then((snapshot) => {
+              snapshot.ref.getDownloadURL().then((url) => {
+                // console.log(url)
+                const push = {
+                  title: values.title,
+                  description: values.description,
+                  status: values.status,
+                  thumbnail: url,
+                  thumbPath: `/images/${imageName}`,
+                  createdDate: firebase.firestore.Timestamp.now(),
+                }
+                takeData.set(push)
+                router.push('/admin/news')
+                message.success('Success edit News')
+              })
+            })
+        })
     }
-    takeData.set(data)
-    router.push('/admin/news')
-    message.success('Success edit News')
+    if (!_.isEmpty(image) && editThumbPath === '') {
+      storage
+        .ref('images')
+        .child(imageName)
+        .put(image)
+        .then((snapshot) => {
+          snapshot.ref.getDownloadURL().then((url) => {
+            // console.log(url)
+            const push = {
+              title: values.title,
+              description: values.description,
+              status: values.status,
+              thumbnail: url,
+              thumbPath: `/images/${imageName}`,
+              createdDate: firebase.firestore.Timestamp.now(),
+            }
+            takeData.set(push)
+            router.push('/admin/news')
+            message.success('Success edit News')
+          })
+        })
+    } else {
+      const push = {
+        title: values.title,
+        description: values.description,
+        status: values.status,
+        thumbnail: values.thumbnail,
+        thumbPath: values.thumbPath,
+        createdDate: firebase.firestore.Timestamp.now(),
+      }
+      takeData.set(push)
+      router.push('/admin/news')
+      message.success('Success edit News')
+    }
   }
 
   return (
@@ -249,11 +315,14 @@ function FormEdit(props: any) {
       initialValues={{
         title: editTitle,
         description: editDesc,
-        thumbnail: '/images/default-image.png',
+        thumbnail: editThumb,
+        thumbPath: editThumbPath,
         status: editStat,
       }}
       isEdit
-      onSubmit={(values, actions) => goSubmit(values, actions)}
+      onSubmit={(values, actions, image, imageName) =>
+        goSubmit(values, actions, image, imageName)
+      }
       isLoading={isLoading}
     />
   )
