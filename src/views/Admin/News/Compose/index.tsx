@@ -48,7 +48,7 @@ function Compose(props: ComposeProps) {
       if (info.file.status !== 'uploading') {
         // console.log(info)
         const image = info.fileList[0].originFileObj
-        const imageName = info.file.name
+        const imageName = info.file.uid
         setImage(image)
         setImageName(imageName)
         info.file.status = 'done'
@@ -101,9 +101,9 @@ function Compose(props: ComposeProps) {
                     style={{ marginTop: 8, marginBottom: 8 }}
                   >
                     <h3>Title</h3>
-                    {/* <Button onClick={() => console.log(imageName)}>
+                    <Button onClick={() => console.log(imageName)}>
                       DEV MAGIC BUTTON
-                    </Button> */}
+                    </Button>
                     <Input
                       size="large"
                       placeholder="Input title here ..."
