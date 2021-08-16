@@ -101,9 +101,9 @@ function Compose(props: ComposeProps) {
                     style={{ marginTop: 8, marginBottom: 8 }}
                   >
                     <h3>Title</h3>
-                    <Button onClick={() => console.log(imageName)}>
+                    {/* <Button onClick={() => console.log(imageName)}>
                       DEV MAGIC BUTTON
-                    </Button>
+                    </Button> */}
                     <Input
                       size="large"
                       placeholder="Input title here ..."
