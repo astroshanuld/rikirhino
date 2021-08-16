@@ -12,8 +12,8 @@ function Footer() {
       <AntFooter style={{ textAlign: 'center' }}>
         &copy; &nbsp;
         {yearNow}
-        &nbsp; Created by &nbsp;
-        <b>Sharaikios</b>
+        &nbsp;
+        <b>Riki Rhino</b>
       </AntFooter>
     </React.Fragment>
   )

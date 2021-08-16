@@ -1,5 +1,5 @@
 import { NextPageContext } from 'next'
-import single from 'views/Admin/Pages/single'
+import Pages from 'views/Admin/Pages'
 
 export const getServerSideProps = async (ctx: NextPageContext) => {
   return {
@@ -9,4 +9,4 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
   }
 }
 
-export default single
+export default Pages
