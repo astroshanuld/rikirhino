@@ -122,7 +122,7 @@ function Compose(props: ComposeProps) {
                     <h3>Thumbnail</h3>
                     <Upload {...propsImage}>
                       <Button icon={<UploadOutlined />}>
-                        Change Thumbnail
+                        {isEdit ? 'Change Thumbnail' : 'Add Thumbnail'}
                       </Button>
                     </Upload>
                     <br />
