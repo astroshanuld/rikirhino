@@ -15,6 +15,7 @@ function Single(props: SingleProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [imgUrl, setImgUrl] = useState('')
   const [urlPath, setUrlPath] = useState('')
+  const [fileList, setFileList] = useState([])
 
   useEffect(() => {
     const getData = firebase
@@ -41,6 +42,7 @@ function Single(props: SingleProps) {
       return info.type === 'image/png' ? true : Upload.LIST_IGNORE
     },
     onChange(info) {
+      setFileList(info.fileList)
       if (info.file.status !== 'uploading') {
         // console.log(info)
         setIsLoading(true)
@@ -67,6 +69,7 @@ function Single(props: SingleProps) {
                     .set(push)
                   message.success('Image has been changed successfully!')
                   setIsLoading(false)
+                  setFileList([])
                 })
               })
           })
@@ -82,6 +85,7 @@ function Single(props: SingleProps) {
         message.error(`${info.file.name} file upload failed.`)
       }
     },
+    fileList,
   }
 
   return (
@@ -90,7 +94,7 @@ function Single(props: SingleProps) {
         <PageHeader title="Pages" subTitle={id} />
       </div>
       <Spin spinning={isLoading}>
-        {/* <Button onClick={() => console.log(id)}>DEV MAGIC BUTTON</Button> */}
+        {/* <Button onClick={() => console.log(fileList)}>DEV MAGIC BUTTON</Button> */}
         <Row justify="center">
           <Image src={imgUrl} height={360} />
         </Row>
