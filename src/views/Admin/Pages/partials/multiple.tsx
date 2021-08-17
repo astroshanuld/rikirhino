@@ -42,7 +42,7 @@ function Multiple(props: MultipleProps) {
       setData(item)
       setIsLoading(false)
     })
-  }, [id])
+  }, [id, dataIndex])
 
   const propsImage = {
     name: 'file',

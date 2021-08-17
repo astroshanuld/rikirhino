@@ -1,8 +1,8 @@
 import { Col, Image, Row } from 'antd'
-import { useEffect, useState } from 'react'
-import cssHome from 'views/Home/partials/Home.module.scss'
 import renderIf from 'layouts/renderIf'
 import firebase from 'layouts/routes/firebaseClient'
+import { useEffect, useState } from 'react'
+import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface LokasiProps {
   contHeight: string
