@@ -1,17 +1,18 @@
+import DashboardOutlined from '@ant-design/icons/DashboardOutlined'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import SolutionOutlined from '@ant-design/icons/SolutionOutlined'
 
 function useMenu() {
   const data = [
     // Menu yang tidak ada turunan
-    // {
-    //   id: 'menu1',
-    //   name: 'Dashboard',
-    //   icon: <DashboardOutlined style={{ fontSize: 16 }} />,
-    //   url: '/admin/dashboard',
-    // },
     {
       id: 'menu1',
+      name: 'Home Page',
+      icon: <DashboardOutlined style={{ fontSize: 16 }} />,
+      url: '/',
+    },
+    {
+      id: 'menu2',
       name: 'Edit Pages',
       icon: <SolutionOutlined style={{ fontSize: 16 }} />,
       url: '',
@@ -65,7 +66,7 @@ function useMenu() {
     },
     // Menu yang ada turunan
     {
-      id: 'menu2',
+      id: 'menu3',
       name: 'News',
       icon: <SettingOutlined style={{ fontSize: 16 }} />,
       url: '',
