@@ -1,7 +1,6 @@
 import Fetcher from 'services/Fetcher'
 import { AxiosInstance } from 'axios'
 import { BASE_API_URL } from 'constant'
-import { LoginAttributes } from 'views/Login'
 import { IWorkshopProductPost } from 'views/Admin/Product/Workshop/Form'
 import { IProviderPost } from 'views/Admin/Settings/Account/Provider/Form'
 import { IGaragePost } from 'views/Admin/Settings/Account/Garage/Form'
@@ -15,10 +14,6 @@ class BaseApiCall {
 
   constructor() {
     this.api = Fetcher.createAuthAxios(BASE_API_URL, 'token_trasmi')
-  }
-
-  login(data: LoginAttributes) {
-    return this.api.post(`/auth/trasmi/sign-in`, data)
   }
 
   logout(data: any) {
