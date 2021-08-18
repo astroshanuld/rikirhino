@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-param-reassign */
 import LeftCircleFilled from '@ant-design/icons/LeftCircleFilled'
 import DeleteFilled from '@ant-design/icons/DeleteFilled'
@@ -101,13 +102,28 @@ function Multiple(props: MultipleProps) {
             icon={<DeleteFilled />}
             danger
             style={{ marginTop: 10 }}
-            onClick={() => console.log(imgUrl.imgUrl)}
           >
             Delete This Picture
           </Button>
         </div>
       </div>
     )
+  }
+
+  const prevButton = () => {
+    if (dataIndex > 0) {
+      setDataIndex(dataIndex - 1)
+    } else if (dataIndex === 0) {
+      setDataIndex(data.length - 1)
+    }
+  }
+
+  const nextButton = () => {
+    if (dataIndex < data.length - 1) {
+      setDataIndex(dataIndex + 1)
+    } else if (dataIndex === data.length - 1) {
+      setDataIndex(1)
+    }
   }
 
   return (
@@ -129,7 +145,14 @@ function Multiple(props: MultipleProps) {
             lg={4}
             xl={4}
           >
-            <Button icon={<LeftCircleFilled />} shape="circle" size="large" />
+            <Button
+              icon={<LeftCircleFilled />}
+              shape="circle"
+              size="large"
+              onClick={() => {
+                prevButton()
+              }}
+            />
           </Col>
           <Col xs={16} sm={16} lg={16} xl={16}>
             {data.map((item, index) => (
@@ -151,7 +174,14 @@ function Multiple(props: MultipleProps) {
             lg={4}
             xl={4}
           >
-            <Button icon={<RightCircleFilled />} shape="circle" size="large" />
+            <Button
+              icon={<RightCircleFilled />}
+              shape="circle"
+              size="large"
+              onClick={() => {
+                nextButton()
+              }}
+            />
           </Col>
         </Row>
       </Spin>

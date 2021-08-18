@@ -58,7 +58,7 @@ function SlideHome() {
     if (ytbIndex < data.length - 1) {
       setYtbIndex(ytbIndex + 1)
     } else if (ytbIndex === data.length - 1) {
-      setYtbIndex(1)
+      setYtbIndex(0)
     }
   }
 

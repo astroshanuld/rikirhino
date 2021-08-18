@@ -4,6 +4,7 @@ import router, { withRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Multiple from 'views/Admin/Pages/partials/multiple'
 import Single from 'views/Admin/Pages/partials/single'
+import Youtube from 'views/Admin/Pages/partials/youtube'
 
 function Pages(props: any) {
   const { pageProps } = props
@@ -26,22 +27,32 @@ function Pages(props: any) {
   }, [id])
 
   const checkTitle = () => {
-    if (
-      id === 'Story' ||
-      id === 'Lokasi' ||
-      id === 'Games' ||
-      id === 'Soundtrack' ||
-      id === 'Diary'
-    ) {
+    if (id === 'Home') {
+      return <Youtube />
+    }
+    if (id === 'Story') {
       return <Single id={id} />
     }
-    if (
-      id === 'Home' ||
-      id === 'Karakter' ||
-      id === 'Gallery' ||
-      id === 'Poster'
-    ) {
+    if (id === 'Karakter') {
       return <Multiple id={id} />
+    }
+    if (id === 'Lokasi') {
+      return <Single id={id} />
+    }
+    if (id === 'Games') {
+      return <Single id={id} />
+    }
+    if (id === 'Gallery') {
+      return <Multiple id={id} />
+    }
+    if (id === 'Soundtrack') {
+      return <Single id={id} />
+    }
+    if (id === 'Poster') {
+      return <Multiple id={id} />
+    }
+    if (id === 'Diary') {
+      return <Single id={id} />
     }
   }
 
