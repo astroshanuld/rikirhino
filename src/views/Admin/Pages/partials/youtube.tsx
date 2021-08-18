@@ -75,6 +75,7 @@ function Youtube() {
   }, [data, dataItem])
 
   function setDelete(x: string) {
+    setIsLoadingTable(true)
     const y = x.split('|')
     confirm({
       title: 'Delete YouTube Video',
@@ -158,7 +159,7 @@ function Youtube() {
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="middle">
       <div id={cssContent.customPageHeader}>
-        <PageHeader title="News" subTitle="All News" />
+        <PageHeader title="Pages" subTitle="Home" />
       </div>
       <Row gutter={16} justify="end">
         <Col>
