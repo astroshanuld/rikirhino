@@ -37,7 +37,12 @@ function Multiple(props: MultipleProps) {
   const [isLoadingTable, setIsLoadingTable] = useState(true)
   const [isAddNewVisible, setIsAddNewVisible] = useState(false)
 
-  const getData = firebase.firestore().collection(id)
+  const getData = firebase
+    .firestore()
+    .collection(id)
+    .orderBy('createdDate')
+
+  const getDatas = firebase.firestore().collection(id)
 
   const getDataItem = () => {
     if (!_.isEmpty(data)) {
@@ -108,7 +113,7 @@ function Multiple(props: MultipleProps) {
           .child(y[1])
           .delete()
           .then(() => {
-            getData
+            getDatas
               .doc(y[0])
               .delete()
               .then(() => message.success('Picture has been deleted!'))
@@ -179,7 +184,7 @@ function Multiple(props: MultipleProps) {
           .put(info.fileList[0].originFileObj)
           .then((snapshot) => {
             snapshot.ref.getDownloadURL().then((url) => {
-              getData.add({
+              getDatas.add({
                 imgUrl: url,
                 ref: `/images/${info.file.uid}`,
                 createdDate: firebase.firestore.Timestamp.now(),

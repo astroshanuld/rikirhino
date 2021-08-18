@@ -15,7 +15,10 @@ function SlideKarakter(props: KarakterProps) {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    const getData = firebase.firestore().collection('Karakter')
+    const getData = firebase
+      .firestore()
+      .collection('Karakter')
+      .orderBy('createdDate')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
       querySnapshot.forEach((doc) => {

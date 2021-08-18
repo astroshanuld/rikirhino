@@ -20,7 +20,10 @@ function SlideNews() {
   const screenSm = useMediaQuery({ query: '(min-width: 576px)' })
 
   useEffect(() => {
-    const getData = firebase.firestore().collection('Posts')
+    const getData = firebase
+      .firestore()
+      .collection('Posts')
+      .orderBy('createdDate', 'desc')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
       querySnapshot.forEach((doc) => {

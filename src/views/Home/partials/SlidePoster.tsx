@@ -15,7 +15,10 @@ function SlidePoster(props: PosterProps) {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    const getData = firebase.firestore().collection('Poster')
+    const getData = firebase
+      .firestore()
+      .collection('Poster')
+      .orderBy('createdDate')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
       querySnapshot.forEach((doc) => {

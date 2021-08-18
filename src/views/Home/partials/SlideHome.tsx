@@ -17,7 +17,10 @@ function SlideHome() {
   const screenSm = useMediaQuery({ query: '(min-width: 576px)' })
 
   useEffect(() => {
-    const getData = firebase.firestore().collection('Home')
+    const getData = firebase
+      .firestore()
+      .collection('Home')
+      .orderBy('createdDate')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
       querySnapshot.forEach((doc) => {

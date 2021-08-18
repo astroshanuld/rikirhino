@@ -15,7 +15,10 @@ function SlideGallery(props: GalleryProps) {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    const getData = firebase.firestore().collection('Gallery')
+    const getData = firebase
+      .firestore()
+      .collection('Gallery')
+      .orderBy('createdDate')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
       querySnapshot.forEach((doc) => {
