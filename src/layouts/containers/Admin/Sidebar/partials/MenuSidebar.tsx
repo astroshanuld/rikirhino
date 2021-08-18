@@ -1,16 +1,14 @@
 /* eslint-disable array-callback-return */
-import { Menu, notification } from 'antd'
-import cssMenuSidebar from 'layouts/containers/Admin/Sidebar/partials/MenuSidebar.module.scss'
-import Link from 'next/link'
-import useMenuSidebar from 'data/useMenuSidebar'
 import PoweroffOutlined from '@ant-design/icons/PoweroffOutlined'
-import { useMutation } from 'react-query'
-import ApiCall from 'services/ApiCall'
-import { get, isEmpty } from 'lodash'
-import Router, { withRouter, NextRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
+import { Menu } from 'antd'
+import useMenuSidebar from 'data/useMenuSidebar'
 import { AdminContext } from 'layouts/containers/Admin'
-import useProfile from 'data/useProfile'
+import cssMenuSidebar from 'layouts/containers/Admin/Sidebar/partials/MenuSidebar.module.scss'
+import firebase from 'layouts/routes/firebaseClient'
+import { isEmpty } from 'lodash'
+import Link from 'next/link'
+import Router, { NextRouter, withRouter } from 'next/router'
+import { useContext, useEffect, useState } from 'react'
 
 const { SubMenu } = Menu
 
@@ -23,32 +21,24 @@ function MenuSidebar(props: IRouterProps) {
   const { pathname } = router
   const { data } = useMenuSidebar()
   const ctxAdmin = useContext(AdminContext)
-
-  const queryProfile = useProfile()
-
-  const postLogout = useMutation(() =>
-    ApiCall.logout({
-      UserId: queryProfile?.data?.id,
-    }),
-  )
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const [, setLayoutLoading] = ctxAdmin.stateLayoutLoading
-    setLayoutLoading(postLogout.isLoading)
-  }, [postLogout.isLoading])
+    setLayoutLoading(isLoading)
+  }, [isLoading])
 
   async function handleLogout() {
+    setIsLoading(true)
     try {
-      const response = await postLogout.mutateAsync()
-      const message = get(response, 'data.message', '')
-      notification.success({
-        message,
-      })
-      // clear logout
-      localStorage.removeItem('token_karcisbola')
-      queryProfile.remove()
-
-      Router.push('/')
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          sessionStorage.removeItem('user')
+          Router.push('/')
+          setIsLoading(false)
+        })
     } catch (error) {
       console.log(error?.response?.data?.message)
     } finally {

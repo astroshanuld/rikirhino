@@ -1,14 +1,11 @@
-import { Col, Skeleton, Space } from 'antd'
-import Avatar from 'antd/lib/avatar/avatar'
+import UserOutlined from '@ant-design/icons/UserOutlined'
 import BaseHeader from '@nexys/components/BaseHeader/BaseHeader'
 import Text from '@nexys/components/Typography/Text'
-import UserOutlined from '@ant-design/icons/UserOutlined'
+import { Col, Space } from 'antd'
+import Avatar from 'antd/lib/avatar/avatar'
 import React from 'react'
-import useProfile from 'data/useProfile'
 
 function Header() {
-  const queryProfile = useProfile()
-
   return (
     <BaseHeader style={{ backgroundColor: '#fff' }}>
       <Col flex="auto" />
@@ -22,7 +19,7 @@ function Header() {
               style={{ textAlign: 'right', marginRight: '10px' }}
             >
               <Text bold size={16}>
-                Hai, &nbsp; Udin
+                Hai, &nbsp; Super Admin
               </Text>
             </Space>
 
