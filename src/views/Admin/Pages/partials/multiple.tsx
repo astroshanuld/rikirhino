@@ -36,8 +36,6 @@ function Multiple(props: MultipleProps) {
   const lastId = useRef('')
   const [isLoadingTable, setIsLoadingTable] = useState(true)
   const [isAddNewVisible, setIsAddNewVisible] = useState(false)
-  const [addVideoTitle, setAddVideoTitle] = useState('')
-  const [addVideoId, setAddVideoId] = useState('')
 
   const getData = firebase.firestore().collection(id)
 
@@ -48,7 +46,7 @@ function Multiple(props: MultipleProps) {
       data.forEach((x, index) => {
         const y = {
           key: index + 1,
-          id: x.id,
+          id: `${x.id}|${x.data.ref}`,
           num: a,
           url: x.data.imgUrl,
         }
@@ -97,43 +95,34 @@ function Multiple(props: MultipleProps) {
   }, [id, data, dataItem])
 
   function setDelete(x: string) {
+    const storage = firebase.storage()
+    const y = x.split('|')
     setIsLoadingTable(true)
     confirm({
       title: 'Delete Picture',
       icon: <ExclamationCircleOutlined />,
       content: 'Are you sure to delete this picture?',
       onOk() {
-        getData
-          .doc(x)
+        storage
+          .ref()
+          .child(y[1])
           .delete()
-          .then(() => message.success('Picture has been deleted!'))
+          .then(() => {
+            getData
+              .doc(y[0])
+              .delete()
+              .then(() => message.success('Picture has been deleted!'))
+          })
       },
       onCancel() {
         message.info('Delete cancelled!')
       },
     })
+    // console.log(x)
   }
 
   const closeAdd = () => {
-    setAddVideoId('')
-    setAddVideoTitle('')
     setIsAddNewVisible(false)
-  }
-
-  const goAdd = async () => {
-    setIsLoadingTable(true)
-    setIsAddNewVisible(false)
-    getData
-      .add({
-        title: addVideoTitle,
-        url: addVideoId,
-        createdDate: firebase.firestore.Timestamp.now(),
-      })
-      .then(() => {
-        setAddVideoId('')
-        setAddVideoTitle('')
-        message.success('Video has been added!')
-      })
   }
 
   const columns = [
@@ -192,6 +181,7 @@ function Multiple(props: MultipleProps) {
             snapshot.ref.getDownloadURL().then((url) => {
               getData.add({
                 imgUrl: url,
+                ref: `/images/${info.file.uid}`,
                 createdDate: firebase.firestore.Timestamp.now(),
               })
               setIsAddNewVisible(false)
@@ -240,7 +230,7 @@ function Multiple(props: MultipleProps) {
       <Modal
         visible={isAddNewVisible}
         onCancel={() => closeAdd()}
-        onOk={() => goAdd()}
+        footer={null}
         destroyOnClose
       >
         <Title level={3}>Add New Picture</Title>
