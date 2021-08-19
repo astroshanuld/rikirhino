@@ -2,12 +2,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-one-expression-per-line */
 import ClockCircleFilled from '@ant-design/icons/ClockCircleFilled'
-import { Card, Col, Row } from 'antd'
+import { Card, Col, Row, Typography } from 'antd'
 import Meta from 'antd/lib/card/Meta'
 import firebase from 'layouts/routes/firebaseClient'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
+
+const { Title } = Typography
 
 function SlideNews() {
   const [width, setWidth] = useState('')
@@ -71,9 +73,37 @@ function SlideNews() {
             key={index}
           >
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <div style={{ width: '60%' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  width: '30%',
+                  height: '30vh',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: '20px',
+                }}
+              >
+                <img
+                  alt="example"
+                  src={item.data.thumbnail}
+                  height="100%"
+                  width="100%"
+                />
+              </div>
+              <div
+                style={{
+                  width: '70%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
                 <Meta
-                  title={item.data.title}
+                  title={
+                    <div>
+                      <Title level={4}>{item.data.title}</Title>
+                    </div>
+                  }
                   description={
                     <span>
                       <ClockCircleFilled />
@@ -89,24 +119,11 @@ function SlideNews() {
                   }
                   style={{ marginBottom: 2 }}
                 />
-                <div
-                  dangerouslySetInnerHTML={{ __html: item.data.description }}
-                />
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  width: '40%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <img
-                  alt="example"
-                  src={item.data.thumbnail}
-                  height="80%"
-                  width="80%"
-                />
+                <div>
+                  {`${item.data.description
+                    .replace(/(<([^>]+)>)/gi, '')
+                    .substring(0, 290)}...`}
+                </div>
               </div>
             </div>
           </Card>

@@ -69,6 +69,7 @@ function Compose(props: ComposeProps) {
   const FormValidation = Yup.object().shape({
     title: Yup.string()
       .min(2, 'Too Short!')
+      .max(65, 'Too Long!')
       .required('Required'),
     description: Yup.string()
       .min(2, 'Too Short!')
@@ -110,6 +111,7 @@ function Compose(props: ComposeProps) {
                       value={formikProps.values.title}
                       onChange={formikProps.handleChange('title')}
                       prefix={<UserOutlined />}
+                      maxLength={65}
                     />
                     <br />
                   </div>

@@ -155,27 +155,50 @@ function Home(props: any) {
                     marginBottom: 73,
                   }}
                 >
-                  <Image src={thumb} width="70%" />
-                </div>
-                <div>
                   <Meta
                     title={<h2>{title}</h2>}
                     description={
-                      <span>
-                        <ClockCircleFilled />
-                        &nbsp;
-                        {new Date(date.seconds * 1000).toLocaleDateString(
-                          'en-IN',
-                          {
-                            year: 'numeric',
-                            month: 'long',
-                            day: '2-digit',
-                          },
-                        )}
-                      </span>
+                      <div
+                        style={{
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <span>
+                          <ClockCircleFilled />
+                          &nbsp;
+                          {new Date(date.seconds * 1000).toLocaleDateString(
+                            'en-IN',
+                            {
+                              year: 'numeric',
+                              month: 'long',
+                              day: '2-digit',
+                            },
+                          )}
+                        </span>
+                      </div>
                     }
-                    style={{ marginBottom: 10 }}
+                    style={{
+                      marginBottom: 10,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   />
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginBottom: 73,
+                    height: '50vh',
+                  }}
+                >
+                  <Image src={thumb} height="100%" />
+                </div>
+                <div>
                   <div dangerouslySetInnerHTML={{ __html: desc }} />
                 </div>
               </Card>
