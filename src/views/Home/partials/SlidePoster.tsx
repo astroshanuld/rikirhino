@@ -1,9 +1,11 @@
 import Icon from '@ant-design/icons/'
 import { Button, Col, Image, Row } from 'antd'
-import cssHome from 'views/Home/partials/Home.module.scss'
-import renderIf from 'layouts/renderIf'
 import firebase from 'layouts/routes/firebaseClient'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
+import cssHome from 'views/Home/partials/Home.module.scss'
 
 interface PosterProps {
   contHeight: string
@@ -13,6 +15,7 @@ function SlidePoster(props: PosterProps) {
   const { contHeight } = props
   const [imgIndex, setImgIndex] = useState(0)
   const [data, setData] = useState([])
+  const sliderRef = useRef()
 
   useEffect(() => {
     const getData = firebase
@@ -33,19 +36,20 @@ function SlidePoster(props: PosterProps) {
   }, [imgIndex])
 
   const prevButton = () => {
-    if (imgIndex > 0) {
-      setImgIndex(imgIndex - 1)
-    } else if (imgIndex === 0) {
-      setImgIndex(data.length - 1)
-    }
+    sliderRef.current.slickPrev()
   }
 
   const nextButton = () => {
-    if (imgIndex < data.length - 1) {
-      setImgIndex(imgIndex + 1)
-    } else if (imgIndex === data.length - 1) {
-      setImgIndex(0)
-    }
+    sliderRef.current.slickNext()
+  }
+
+  const settings = {
+    ref: sliderRef,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
   }
 
   return (
@@ -74,41 +78,40 @@ function SlidePoster(props: PosterProps) {
           onClick={() => prevButton()}
         />
       </Col>
-      <Col
-        xl={20}
-        lg={20}
-        md={20}
-        sm={16}
-        flex={1}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <div className={cssHome.youtubeContainer}>
-          {data.map((item, index) => (
-            <div>
-              {renderIf(index === imgIndex)(
-                <Image src={item.data.imgUrl} height="50vh" preview={false} />,
-              )}
-            </div>
-          ))}
+      <Col xl={20} lg={20} md={20} sm={20}>
+        <div style={{ height: '10%' }}>
+          <React.Fragment />
         </div>
-        {data.map((item, index) => (
-          <div>
-            {renderIf(index === imgIndex)(
-              <a
-                href={item.data.imgUrl}
-                className={cssHome.buttonDownload}
-                download
-              >
-                Download
-              </a>,
-            )}
-          </div>
-        ))}
+        <div style={{ height: '80%' }}>
+          <Slider {...settings}>
+            {data.map((item) => (
+              <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Image src={item.data.imgUrl} width="20vw" />
+                  <a
+                    target="_blank"
+                    href={item.data.imgUrl}
+                    className={cssHome.buttonDownload}
+                    download
+                    rel="noreferrer"
+                  >
+                    Download
+                  </a>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+        <div style={{ height: '10%' }}>
+          <React.Fragment />
+        </div>
       </Col>
       <Col
         xl={2}
