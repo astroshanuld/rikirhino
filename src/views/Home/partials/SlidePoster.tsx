@@ -13,9 +13,9 @@ interface PosterProps {
 
 function SlidePoster(props: PosterProps) {
   const { contHeight } = props
-  const [imgIndex, setImgIndex] = useState(0)
+  const [imgIndex] = useState(0)
   const [data, setData] = useState([])
-  const sliderRef = useRef()
+  const sliderRef = useRef<Slider>(null)
 
   useEffect(() => {
     const getData = firebase
