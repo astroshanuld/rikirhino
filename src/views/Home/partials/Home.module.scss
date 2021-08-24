@@ -45,6 +45,18 @@
     color: #000;
 }
 
+.menuTextMobile {
+    font-family: LuckiestGuy;
+    font-size: 10px;
+    background-color: #fbb040;
+    color: #000;
+}
+
+.buttonSwitch {
+    background-color: #fbb040;
+    color: #000;
+}
+
 .youtubeContainerXxl {
     height: 10vh;
     width: 10vw;
@@ -74,11 +86,17 @@
     width: 60vw;
     margin-bottom: 8px;
 }
+.youtubeContainerSsm {
+    height: 15vh;
+    width: 90vw;
+    margin-bottom: 8px;
+}
 
 .buttonDownload {
     color: #000;
     display: block;
     padding: 2px 20px 2px 20px;
+    margin-top: 5px;
     border-radius: 10px;
     border-width: 2px;
     background-color: orange;
@@ -87,4 +105,20 @@
 
 .modalBase {
     background: rgba(255, 255, 255, 0.8);
+}
+
+.sliderContainer {
+    height: 100%;
+    align-content: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.menuMobile {
+    background-color: #fbb040;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+    color: #fff;
 }

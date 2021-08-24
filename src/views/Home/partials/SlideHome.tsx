@@ -1,11 +1,13 @@
 import Icon from '@ant-design/icons/'
 import { Button, Col, Row } from 'antd'
-import { useEffect, useState } from 'react'
+import renderIf from 'layouts/renderIf'
+import firebase from 'layouts/routes/firebaseClient'
+import React, { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import YouTube from 'react-youtube'
+import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
 import cssHome from 'views/Home/partials/Home.module.scss'
-import firebase from 'layouts/routes/firebaseClient'
-import renderIf from 'layouts/renderIf'
 
 function SlideHome() {
   const [ytbIndex, setYtbIndex] = useState(0)
@@ -15,6 +17,7 @@ function SlideHome() {
   const screenLg = useMediaQuery({ query: '(min-width: 992px)' })
   const screenMd = useMediaQuery({ query: '(min-width: 768px)' })
   const screenSm = useMediaQuery({ query: '(min-width: 576px)' })
+  const screenSsm = useMediaQuery({ query: '(max-width: 576px)' })
 
   useEffect(() => {
     const getData = firebase
@@ -47,6 +50,9 @@ function SlideHome() {
     if (screenSm) {
       return cssHome.youtubeContainerSm
     }
+    if (screenSsm) {
+      return cssHome.youtubeContainerSsm
+    }
   }
 
   const prevButton = () => {
@@ -66,82 +72,84 @@ function SlideHome() {
   }
 
   return (
-    <Row gutter={[0, 16]}>
-      <Col
-        xl={2}
-        lg={2}
-        md={2}
-        sm={4}
-        className={cssHome.leftButton}
-        style={{ display: 'flex' }}
-      >
-        <Button
-          type="link"
-          icon={
-            <Icon
-              component={() => (
-                <img
-                  src="./../../../../images/left-button.png"
-                  width={50}
-                  alt="."
-                />
-              )}
-            />
-          }
-          onClick={() => prevButton()}
-        />
-      </Col>
-      <Col
-        xl={20}
-        lg={20}
-        md={20}
-        sm={16}
-        flex={1}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div>
-          {data.map((item, index) => (
-            <div>
-              {renderIf(index === ytbIndex)(
-                <YouTube videoId={item.data.url} className={checkScreen()} />,
-              )}
-            </div>
-          ))}
-        </div>
-      </Col>
-      <Col
-        xl={2}
-        lg={2}
-        md={2}
-        sm={4}
-        className={cssHome.rightButton}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <Button
-          type="link"
-          icon={
-            <Icon
-              component={() => (
-                <img
-                  src="./../../../../images/right-button.png"
-                  width={50}
-                  alt="."
-                />
-              )}
-            />
-          }
-          style={{ display: 'contents' }}
-          onClick={() => nextButton()}
-        />
-      </Col>
-    </Row>
+    <div>
+      <Row gutter={[0, 16]}>
+        <Col
+          xl={2}
+          lg={2}
+          md={2}
+          sm={4}
+          className={cssHome.leftButton}
+          style={{ display: 'flex' }}
+        >
+          <Button
+            type="link"
+            icon={
+              <Icon
+                component={() => (
+                  <img
+                    src="./../../../../images/left-button.png"
+                    width={50}
+                    alt="."
+                  />
+                )}
+              />
+            }
+            onClick={() => prevButton()}
+          />
+        </Col>
+        <Col
+          xl={20}
+          lg={20}
+          md={20}
+          sm={16}
+          flex={1}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <div>
+            {data.map((item, index) => (
+              <div>
+                {renderIf(index === ytbIndex)(
+                  <YouTube videoId={item.data.url} className={checkScreen()} />,
+                )}
+              </div>
+            ))}
+          </div>
+        </Col>
+        <Col
+          xl={2}
+          lg={2}
+          md={2}
+          sm={4}
+          className={cssHome.rightButton}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Button
+            type="link"
+            icon={
+              <Icon
+                component={() => (
+                  <img
+                    src="./../../../../images/right-button.png"
+                    width={50}
+                    alt="."
+                  />
+                )}
+              />
+            }
+            style={{ display: 'contents' }}
+            onClick={() => nextButton()}
+          />
+        </Col>
+      </Row>
+    </div>
   )
 }
 
