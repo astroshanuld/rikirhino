@@ -30,76 +30,70 @@ function SlideNewsMobile() {
   })
 
   return (
-    <Row gutter={[0, 16]}>
+    <Row
+      gutter={[0, 16]}
+      style={{ maxHeight: '70%', display: 'grid', justifyContent: 'center' }}
+    >
       <Col
-        xl={24}
-        lg={24}
-        md={24}
-        sm={24}
-        flex={1}
         style={{
-          display: 'grid',
-          justifyContent: 'center',
+          overflowY: 'scroll',
+          height: '73vh',
         }}
       >
-        <div style={{ overflowY: 'scroll', height: '70%' }}>
-          {data.map((item, index) => (
-            <Card
-              hoverable
-              style={{ width: '80vw', marginBottom: 10 }}
-              onClick={() =>
-                router.push(`/news/${encodeURIComponent(item.id)}`)
-              }
-              key={index}
-            >
-              <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    width: '30%',
-                    height: '10vh',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginRight: '20px',
-                  }}
-                >
-                  <img
-                    alt="example"
-                    src={item.data.thumbnail}
-                    height="100%"
-                    width="100%"
-                  />
-                </div>
-                <div
-                  style={{
-                    width: '70%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <h4>{item.data.title}</h4>
-                  <span style={{ color: '#a6a6a6', fontSize: 10 }}>
-                    <ClockCircleFilled />
-                    &nbsp;
-                    {new Date(
-                      item.data.createdDate.seconds * 1000,
-                    ).toLocaleDateString('en-IN', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: '2-digit',
-                    })}
-                  </span>
-                  <div style={{ fontSize: 12 }}>
-                    {`${item.data.description
-                      .replace(/(<([^>]+)>)/gi, '')
-                      .substring(0, 50)}...`}
-                  </div>
+        {data.map((item, index) => (
+          <Card
+            hoverable
+            style={{ width: '80vw', marginBottom: 10 }}
+            onClick={() => router.push(`/news/${encodeURIComponent(item.id)}`)}
+            key={index}
+          >
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  width: '30%',
+                  height: '10vh',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: '20px',
+                }}
+              >
+                <img
+                  alt="example"
+                  src={item.data.thumbnail}
+                  height="100%"
+                  width="100%"
+                />
+              </div>
+              <div
+                style={{
+                  width: '70%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
+                <h4>{item.data.title}</h4>
+                <span style={{ color: '#a6a6a6', fontSize: 10 }}>
+                  <ClockCircleFilled />
+                  &nbsp;
+                  {new Date(
+                    item.data.createdDate.seconds * 1000,
+                  ).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit',
+                  })}
+                </span>
+                <div style={{ fontSize: 12 }}>
+                  {`${item.data.description
+                    .replace(/(<([^>]+)>)/gi, '')
+                    .substring(0, 50)}...`}
                 </div>
               </div>
-            </Card>
-          ))}
-        </div>
+            </div>
+          </Card>
+        ))}
       </Col>
     </Row>
   )
