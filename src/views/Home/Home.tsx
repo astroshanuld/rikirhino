@@ -22,6 +22,9 @@ import SlideKarakterMobile from 'views/Home/partials/mobile/SlideKarakterMobile'
 import SlideLokasiMobile from 'views/Home/partials/mobile/SlideLokasiMobile'
 import SlideGalleryMobile from 'views/Home/partials/mobile/SlideGalleryMobile'
 import SlideGamesMobile from 'views/Home/partials/mobile/SlideGamesMobile'
+import SlidePosterMobile from './partials/mobile/SlidePosterMobile'
+import SlideSoundtrackMobile from './partials/mobile/SlideSoundtrackMobile'
+import SlideDiaryMobile from './partials/mobile/SlideDiaryMobile'
 
 const { Content, Footer } = Layout
 const { TabPane } = Tabs
@@ -106,13 +109,25 @@ function Home() {
       }
     }
     if (tabIndex === '7') {
-      setRender(<SlidePoster contHeight={height} />)
+      if (screenSsm) {
+        setRender(<SlidePosterMobile />)
+      } else {
+        setRender(<SlidePoster contHeight={height} />)
+      }
     }
     if (tabIndex === '8') {
-      setRender(<SlideSoundtrack contHeight={height} />)
+      if (screenSsm) {
+        setRender(<SlideSoundtrackMobile />)
+      } else {
+        setRender(<SlideSoundtrack contHeight={height} />)
+      }
     }
     if (tabIndex === '9') {
-      setRender(<SlideDiary contHeight={height} />)
+      if (screenSsm) {
+        setRender(<SlideDiaryMobile />)
+      } else {
+        setRender(<SlideDiary contHeight={height} />)
+      }
     }
     if (tabIndex === '10') {
       setRender(<SlideNews />)
