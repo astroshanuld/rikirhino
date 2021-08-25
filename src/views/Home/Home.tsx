@@ -22,9 +22,10 @@ import SlideKarakterMobile from 'views/Home/partials/mobile/SlideKarakterMobile'
 import SlideLokasiMobile from 'views/Home/partials/mobile/SlideLokasiMobile'
 import SlideGalleryMobile from 'views/Home/partials/mobile/SlideGalleryMobile'
 import SlideGamesMobile from 'views/Home/partials/mobile/SlideGamesMobile'
-import SlidePosterMobile from './partials/mobile/SlidePosterMobile'
-import SlideSoundtrackMobile from './partials/mobile/SlideSoundtrackMobile'
-import SlideDiaryMobile from './partials/mobile/SlideDiaryMobile'
+import SlidePosterMobile from 'views/Home/partials/mobile/SlidePosterMobile'
+import SlideSoundtrackMobile from 'views/Home/partials/mobile/SlideSoundtrackMobile'
+import SlideDiaryMobile from 'views/Home/partials/mobile/SlideDiaryMobile'
+import SlideNewsMobile from 'views/Home/partials/mobile/SlideNewsMobile'
 
 const { Content, Footer } = Layout
 const { TabPane } = Tabs
@@ -130,7 +131,11 @@ function Home() {
       }
     }
     if (tabIndex === '10') {
-      setRender(<SlideNews />)
+      if (screenSsm) {
+        setRender(<SlideNewsMobile />)
+      } else {
+        setRender(<SlideNews />)
+      }
     }
   }
 
@@ -156,7 +161,7 @@ function Home() {
     <div>
       <Layout
         className="layout"
-        style={tabIndex !== '10' ? { height: '100vh' } : {}}
+        style={tabIndex !== '10' ? { height: '100vh' } : { height: '100vh' }}
       >
         <Content className={cssHome.baseContent}>
           <Row gutter={[0, 16]} style={styleMenu}>
@@ -169,7 +174,7 @@ function Home() {
             </Col>
             <Col xl={22} lg={20} md={19} sm={18} xs={17}>
               {screenSsm ? (
-                <div style={{ backgroundColor: '#000' }}>
+                <div>
                   <div>
                     <Button
                       type="primary"
