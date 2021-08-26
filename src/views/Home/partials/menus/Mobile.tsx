@@ -1,7 +1,6 @@
 import MenuOutlined from '@ant-design/icons/MenuOutlined'
 import { Button } from 'antd'
 import React, { useState } from 'react'
-import cssMenu from 'views/Home/partials/menus/Menu.module.scss'
 
 interface IMobile {
   setTab: (x) => void
@@ -41,7 +40,11 @@ const Mobile = (props: IMobile) => {
           size="large"
           icon={<MenuOutlined />}
           onClick={() => checkMenu()}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         />
       </div>
       <div
@@ -56,61 +59,111 @@ const Mobile = (props: IMobile) => {
       >
         <Button
           onClick={() => onClickMenu('1')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Home
         </Button>
         <Button
           onClick={() => onClickMenu('2')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Story
         </Button>
         <Button
           onClick={() => onClickMenu('3')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Karakter
         </Button>
         <Button
           onClick={() => onClickMenu('4')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Lokasi
         </Button>
         <Button
           onClick={() => onClickMenu('5')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Gallery
         </Button>
         <Button
           onClick={() => onClickMenu('6')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Games
         </Button>
         <Button
           onClick={() => onClickMenu('7')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Poster
         </Button>
         <Button
           onClick={() => onClickMenu('8')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Soundtrack
         </Button>
         <Button
           onClick={() => onClickMenu('9')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           Diary Beni
         </Button>
         <Button
           onClick={() => onClickMenu('10')}
-          className={cssMenu.menuTextMobile}
+          style={{
+            fontFamily: 'LuckiestGuy',
+            fontSize: 10,
+            backgroundColor: '#fbb040',
+            color: '#000',
+          }}
         >
           News
         </Button>

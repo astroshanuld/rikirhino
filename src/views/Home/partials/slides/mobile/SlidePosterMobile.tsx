@@ -4,7 +4,6 @@ import { Button, Col, Image, Row, Spin } from 'antd'
 import firebase from 'layouts/routes/firebaseClient'
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick'
-import cssMobile from 'views/Home/partials/slides/mobile/Mobile.module.scss'
 
 function SlidePosterMobile() {
   const [imgIndex] = useState(0)
@@ -102,7 +101,16 @@ function SlidePosterMobile() {
                     <a
                       target="_blank"
                       href={item.data.imgUrl}
-                      className={cssMobile.buttonDownload}
+                      style={{
+                        color: '#000',
+                        display: 'block',
+                        padding: '2px 20px 2px 20px',
+                        marginTop: 5,
+                        borderRadius: 10,
+                        borderWidth: 2,
+                        backgroundColor: '#fbb040',
+                        fontFamily: 'LuckiestGuy',
+                      }}
                       download
                       rel="noreferrer"
                     >

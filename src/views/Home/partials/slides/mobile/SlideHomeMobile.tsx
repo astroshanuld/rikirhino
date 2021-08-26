@@ -6,7 +6,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
-import cssMobile from 'views/Home/partials/slides/mobile/Mobile.module.scss'
 
 function SlideHomeMobile() {
   const [data, setData] = useState([{ id: '1', data: { url: 'xubu' } }])
@@ -70,15 +69,18 @@ function SlideHomeMobile() {
             icon={<LeftCircleFilled />}
             onClick={() => prevButton()}
             size="large"
-            style={{ marginRight: 20 }}
-            className={cssMobile.buttonSwitch}
+            style={{
+              marginRight: 20,
+              backgroundColor: '#fbb040',
+              color: '#000',
+            }}
           />
           <Button
             type="primary"
             icon={<RightCircleFilled />}
             onClick={() => nextButton()}
             size="large"
-            className={cssMobile.buttonSwitch}
+            style={{ backgroundColor: '#fbb040', color: '#000' }}
           />
         </Col>
       </Row>

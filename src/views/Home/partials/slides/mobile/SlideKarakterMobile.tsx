@@ -4,7 +4,6 @@ import { Button, Col, Image, Row, Spin } from 'antd'
 import firebase from 'layouts/routes/firebaseClient'
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick'
-import cssMobile from 'views/Home/partials/slides/mobile/Mobile.module.scss'
 
 function SlideKarakterMobile() {
   const [imgIndex] = useState(0)
@@ -68,15 +67,18 @@ function SlideKarakterMobile() {
             icon={<LeftCircleFilled />}
             onClick={() => prevButton()}
             size="large"
-            style={{ marginRight: 20 }}
-            className={cssMobile.buttonSwitch}
+            style={{
+              marginRight: 20,
+              backgroundColor: '#fbb040',
+              color: '#000',
+            }}
           />
           <Button
             type="primary"
             icon={<RightCircleFilled />}
             onClick={() => nextButton()}
             size="large"
-            className={cssMobile.buttonSwitch}
+            style={{ backgroundColor: '#fbb040', color: '#000' }}
           />
         </Col>
       </Row>
