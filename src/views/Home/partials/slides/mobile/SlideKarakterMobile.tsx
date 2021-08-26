@@ -1,23 +1,21 @@
 import LeftCircleFilled from '@ant-design/icons/LeftCircleFilled'
 import RightCircleFilled from '@ant-design/icons/RightCircleFilled'
-import { Button, Col, Row, Spin } from 'antd'
+import { Button, Col, Image, Row, Spin } from 'antd'
 import firebase from 'layouts/routes/firebaseClient'
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick'
-import 'slick-carousel/slick/slick-theme.css'
-import 'slick-carousel/slick/slick.css'
-import cssHome from 'views/Home/partials/Home.module.scss'
+import cssMobile from 'views/Home/partials/slides/mobile/Mobile.module.scss'
 
-function SlideHomeMobile() {
-  const [data, setData] = useState([{ id: '1', data: { url: 'xubu' } }])
-  const [ytbIndex] = useState(0)
+function SlideKarakterMobile() {
+  const [imgIndex] = useState(0)
+  const [data, setData] = useState([{ id: '1', data: { imgUrl: '' } }])
   const [isLoading, setIsLoading] = useState(true)
   const sliderRef = useRef<Slider>(null)
 
   useEffect(() => {
     const getData = firebase
       .firestore()
-      .collection('Home')
+      .collection('Karakter')
       .orderBy('createdDate')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
@@ -31,7 +29,7 @@ function SlideHomeMobile() {
       setData(item)
     })
     setIsLoading(false)
-  }, [ytbIndex])
+  }, [imgIndex])
 
   const settings = {
     ref: sliderRef,
@@ -71,14 +69,14 @@ function SlideHomeMobile() {
             onClick={() => prevButton()}
             size="large"
             style={{ marginRight: 20 }}
-            className={cssHome.buttonSwitch}
+            className={cssMobile.buttonSwitch}
           />
           <Button
             type="primary"
             icon={<RightCircleFilled />}
             onClick={() => nextButton()}
             size="large"
-            className={cssHome.buttonSwitch}
+            className={cssMobile.buttonSwitch}
           />
         </Col>
       </Row>
@@ -96,13 +94,7 @@ function SlideHomeMobile() {
                       height: '30vh',
                     }}
                   >
-                    {/* <Text>{item.data.url}</Text> */}
-                    <iframe
-                      title="Youtube Embed"
-                      src={`https://www.youtube.com/embed/${item.data.url}`}
-                      height="90%"
-                      width="90%"
-                    />
+                    <Image src={item.data.imgUrl} width="90%" height="90%" />
                   </div>
                 </div>
               )
@@ -114,4 +106,4 @@ function SlideHomeMobile() {
   )
 }
 
-export default SlideHomeMobile
+export default SlideKarakterMobile

@@ -4,9 +4,9 @@ import { Button, Col, Image, Row, Spin } from 'antd'
 import firebase from 'layouts/routes/firebaseClient'
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick'
-import cssHome from 'views/Home/partials/Home.module.scss'
+import cssMobile from 'views/Home/partials/slides/mobile/Mobile.module.scss'
 
-function SlidePosterMobile() {
+function SlideGalleryMobile() {
   const [imgIndex] = useState(0)
   const [data, setData] = useState([{ id: '1', data: { imgUrl: '' } }])
   const [isLoading, setIsLoading] = useState(true)
@@ -15,7 +15,7 @@ function SlidePosterMobile() {
   useEffect(() => {
     const getData = firebase
       .firestore()
-      .collection('Poster')
+      .collection('Gallery')
       .orderBy('createdDate')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
@@ -69,14 +69,14 @@ function SlidePosterMobile() {
             onClick={() => prevButton()}
             size="large"
             style={{ marginRight: 20 }}
-            className={cssHome.buttonSwitch}
+            className={cssMobile.buttonSwitch}
           />
           <Button
             type="primary"
             icon={<RightCircleFilled />}
             onClick={() => nextButton()}
             size="large"
-            className={cssHome.buttonSwitch}
+            className={cssMobile.buttonSwitch}
           />
         </Col>
       </Row>
@@ -91,20 +91,10 @@ function SlidePosterMobile() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      height: '50vh',
-                      flexDirection: 'column',
+                      height: '30vh',
                     }}
                   >
-                    <Image src={item.data.imgUrl} width="55%" height="80%" />
-                    <a
-                      target="_blank"
-                      href={item.data.imgUrl}
-                      className={cssHome.buttonDownload}
-                      download
-                      rel="noreferrer"
-                    >
-                      Download
-                    </a>
+                    <Image src={item.data.imgUrl} width="90%" height="90%" />
                   </div>
                 </div>
               )
@@ -116,4 +106,4 @@ function SlidePosterMobile() {
   )
 }
 
-export default SlidePosterMobile
+export default SlideGalleryMobile

@@ -4,9 +4,9 @@ import { Button, Col, Image, Row, Spin } from 'antd'
 import firebase from 'layouts/routes/firebaseClient'
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick'
-import cssHome from 'views/Home/partials/Home.module.scss'
+import cssMobile from 'views/Home/partials/slides/mobile/Mobile.module.scss'
 
-function SlideKarakterMobile() {
+function SlidePosterMobile() {
   const [imgIndex] = useState(0)
   const [data, setData] = useState([{ id: '1', data: { imgUrl: '' } }])
   const [isLoading, setIsLoading] = useState(true)
@@ -15,7 +15,7 @@ function SlideKarakterMobile() {
   useEffect(() => {
     const getData = firebase
       .firestore()
-      .collection('Karakter')
+      .collection('Poster')
       .orderBy('createdDate')
     getData.onSnapshot(async (querySnapshot) => {
       const item = []
@@ -69,14 +69,14 @@ function SlideKarakterMobile() {
             onClick={() => prevButton()}
             size="large"
             style={{ marginRight: 20 }}
-            className={cssHome.buttonSwitch}
+            className={cssMobile.buttonSwitch}
           />
           <Button
             type="primary"
             icon={<RightCircleFilled />}
             onClick={() => nextButton()}
             size="large"
-            className={cssHome.buttonSwitch}
+            className={cssMobile.buttonSwitch}
           />
         </Col>
       </Row>
@@ -91,10 +91,20 @@ function SlideKarakterMobile() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      height: '30vh',
+                      height: '50vh',
+                      flexDirection: 'column',
                     }}
                   >
-                    <Image src={item.data.imgUrl} width="90%" height="90%" />
+                    <Image src={item.data.imgUrl} width="55%" height="80%" />
+                    <a
+                      target="_blank"
+                      href={item.data.imgUrl}
+                      className={cssMobile.buttonDownload}
+                      download
+                      rel="noreferrer"
+                    >
+                      Download
+                    </a>
                   </div>
                 </div>
               )
@@ -106,4 +116,4 @@ function SlideKarakterMobile() {
   )
 }
 
-export default SlideKarakterMobile
+export default SlidePosterMobile

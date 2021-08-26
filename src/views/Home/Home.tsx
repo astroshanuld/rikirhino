@@ -1,40 +1,39 @@
-import FacebookOutlined from '@ant-design/icons/FacebookOutlined'
-import InstagramOutlined from '@ant-design/icons/InstagramOutlined'
-import TwitterOutlined from '@ant-design/icons/TwitterOutlined'
-import { Affix, Button, Col, Image, Layout, Row, Tabs } from 'antd'
+import { Col, Image, Layout, Row } from 'antd'
 import 'antd/dist/antd.css'
 import React, { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import cssHome from 'views/Home/partials/Home.module.scss'
-import SlideDiary from 'views/Home/partials/SlideDiary'
-import SlideGallery from 'views/Home/partials/SlideGallery'
-import SlideGames from 'views/Home/partials/SlideGames'
-import SlideHome from 'views/Home/partials/SlideHome'
-import SlideHomeMobile from 'views/Home/partials/mobile/SlideHomeMobile'
-import SlideKarakter from 'views/Home/partials/SlideKarakter'
-import SlideLokasi from 'views/Home/partials/SlideLokasi'
-import SlideNews from 'views/Home/partials/SlideNews'
-import SlidePoster from 'views/Home/partials/SlidePoster'
-import SlideSoundtrack from 'views/Home/partials/SlideSoundtrack'
-import SlideStory from 'views/Home/partials/SlideStory'
-import SlideStoryMobile from 'views/Home/partials/mobile/SlideStoryMobile'
-import SlideKarakterMobile from 'views/Home/partials/mobile/SlideKarakterMobile'
-import SlideLokasiMobile from 'views/Home/partials/mobile/SlideLokasiMobile'
-import SlideGalleryMobile from 'views/Home/partials/mobile/SlideGalleryMobile'
-import SlideGamesMobile from 'views/Home/partials/mobile/SlideGamesMobile'
-import SlidePosterMobile from 'views/Home/partials/mobile/SlidePosterMobile'
-import SlideSoundtrackMobile from 'views/Home/partials/mobile/SlideSoundtrackMobile'
-import SlideDiaryMobile from 'views/Home/partials/mobile/SlideDiaryMobile'
-import SlideNewsMobile from 'views/Home/partials/mobile/SlideNewsMobile'
+import Desktop from 'views/Home/partials/menus/Desktop'
+import Mobile from 'views/Home/partials/menus/Mobile'
+import SlideDiaryMobile from 'views/Home/partials/slides/mobile/SlideDiaryMobile'
+import SlideGalleryMobile from 'views/Home/partials/slides/mobile/SlideGalleryMobile'
+import SlideGamesMobile from 'views/Home/partials/slides/mobile/SlideGamesMobile'
+import SlideHomeMobile from 'views/Home/partials/slides/mobile/SlideHomeMobile'
+import SlideKarakterMobile from 'views/Home/partials/slides/mobile/SlideKarakterMobile'
+import SlideLokasiMobile from 'views/Home/partials/slides/mobile/SlideLokasiMobile'
+import SlideNewsMobile from 'views/Home/partials/slides/mobile/SlideNewsMobile'
+import SlidePosterMobile from 'views/Home/partials/slides/mobile/SlidePosterMobile'
+import SlideSoundtrackMobile from 'views/Home/partials/slides/mobile/SlideSoundtrackMobile'
+import SlideStoryMobile from 'views/Home/partials/slides/mobile/SlideStoryMobile'
+import SlideDiary from 'views/Home/partials/slides/SlideDiary'
+import SlideGallery from 'views/Home/partials/slides/SlideGallery'
+import SlideGames from 'views/Home/partials/slides/SlideGames'
+import SlideHome from 'views/Home/partials/slides/SlideHome'
+import SlideKarakter from 'views/Home/partials/slides/SlideKarakter'
+import SlideLokasi from 'views/Home/partials/slides/SlideLokasi'
+import SlideNews from 'views/Home/partials/slides/SlideNews'
+import SlidePoster from 'views/Home/partials/slides/SlidePoster'
+import SlideSoundtrack from 'views/Home/partials/slides/SlideSoundtrack'
+import SlideStory from 'views/Home/partials/slides/SlideStory'
 
 const { Content, Footer } = Layout
-const { TabPane } = Tabs
 
 function Home() {
   const [height, setHeight] = useState('65vh')
   const [tabIndex, setTabIndex] = useState('1')
   const [styleMenu, setStyleMenu] = useState({})
   const [render, setRender] = useState(null)
+  const [renderMenu, setRenderMenu] = useState(null)
 
   const screenXxl = useMediaQuery({ query: '(min-width: 1600px)' })
   const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
@@ -43,97 +42,154 @@ function Home() {
   const screenSm = useMediaQuery({ query: '(min-width: 576px)' })
   const screenSsm = useMediaQuery({ query: '(max-width: 576px)' })
 
-  const extraButton = (
-    <div style={{ marginRight: 10 }}>
-      <Button
-        type="dashed"
-        shape="circle"
-        icon={<InstagramOutlined />}
-        style={{ margin: '0px 5px' }}
-      />
-      <Button
-        type="dashed"
-        shape="circle"
-        icon={<TwitterOutlined />}
-        style={{ margin: '0px 5px' }}
-      />
-      <Button
-        type="dashed"
-        shape="circle"
-        icon={<FacebookOutlined />}
-        style={{ margin: '0px 5px' }}
-      />
-    </div>
-  )
-
   const checkSlide = () => {
     if (tabIndex === '1') {
       if (screenSsm) {
         setRender(<SlideHomeMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideHome />)
       }
     }
     if (tabIndex === '2') {
       if (screenSsm) {
         setRender(<SlideStoryMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideStory contHeight={height} />)
       }
     }
     if (tabIndex === '3') {
       if (screenSsm) {
         setRender(<SlideKarakterMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideKarakter contHeight={height} />)
       }
     }
     if (tabIndex === '4') {
       if (screenSsm) {
         setRender(<SlideLokasiMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideLokasi contHeight={height} />)
       }
     }
     if (tabIndex === '5') {
       if (screenSsm) {
         setRender(<SlideGalleryMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideGallery contHeight={height} />)
       }
     }
     if (tabIndex === '6') {
       if (screenSsm) {
         setRender(<SlideGamesMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideGames contHeight={height} />)
       }
     }
     if (tabIndex === '7') {
       if (screenSsm) {
         setRender(<SlidePosterMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlidePoster contHeight={height} />)
       }
     }
     if (tabIndex === '8') {
       if (screenSsm) {
         setRender(<SlideSoundtrackMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideSoundtrack contHeight={height} />)
       }
     }
     if (tabIndex === '9') {
       if (screenSsm) {
         setRender(<SlideDiaryMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideDiary contHeight={height} />)
       }
     }
     if (tabIndex === '10') {
       if (screenSsm) {
         setRender(<SlideNewsMobile />)
+        setRenderMenu(<Mobile setTab={setTabIndex} />)
       } else {
+        setRenderMenu(
+          <Desktop
+            setTab={setTabIndex}
+            setStyle={setStyleMenu}
+            tabIndex={tabIndex}
+          />,
+        )
         setRender(<SlideNews />)
       }
     }
@@ -173,151 +229,7 @@ function Home() {
               />
             </Col>
             <Col xl={22} lg={20} md={19} sm={18} xs={17}>
-              {screenSsm ? (
-                <div>
-                  <div>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('1')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Home
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('2')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Story
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('3')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Karakter
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('4')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Lokasi
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('5')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Gallery
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('6')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Games
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('7')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Poster
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('8')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Soundtrack
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('9')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      Diary Beni
-                    </Button>
-                    <Button
-                      type="primary"
-                      onClick={() => setTabIndex('10')}
-                      className={cssHome.menuTextMobile}
-                    >
-                      News
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <Affix
-                  onChange={(affixed) => {
-                    if (affixed) {
-                      setStyleMenu({ background: 'rgba(0,0,0,0.8)' })
-                    } else {
-                      setStyleMenu({})
-                    }
-                  }}
-                >
-                  <div style={{ marginTop: 30 }}>
-                    <Tabs
-                      centered
-                      tabBarStyle={{
-                        background: '#fbb040',
-                      }}
-                      activeKey={tabIndex}
-                      onChange={(data) => {
-                        setTabIndex(data)
-                      }}
-                      tabBarExtraContent={extraButton}
-                    >
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>Home</span>}
-                        key="1"
-                      />
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>Story</span>}
-                        key="2"
-                      />
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>Karakter</span>}
-                        key="3"
-                      />
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>Lokasi</span>}
-                        key="4"
-                      />
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>Gallery</span>}
-                        key="5"
-                      />
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>Games</span>}
-                        key="6"
-                      />
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>Poster</span>}
-                        key="7"
-                      />
-                      <TabPane
-                        tab={
-                          <span className={cssHome.menuText}>Soundtrack</span>
-                        }
-                        key="8"
-                      />
-                      <TabPane
-                        tab={
-                          <span className={cssHome.menuText}>Diary Beni</span>
-                        }
-                        key="9"
-                      />
-                      <TabPane
-                        tab={<span className={cssHome.menuText}>News</span>}
-                        key="10"
-                      />
-                    </Tabs>
-                  </div>
-                </Affix>
-              )}
+              {renderMenu}
             </Col>
           </Row>
           {render}
