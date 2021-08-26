@@ -68,15 +68,18 @@ function SlidePosterMobile() {
             icon={<LeftCircleFilled />}
             onClick={() => prevButton()}
             size="large"
-            style={{ marginRight: 20 }}
-            className={cssMobile.buttonSwitch}
+            style={{
+              marginRight: 20,
+              backgroundColor: '#fbb040',
+              color: '#000',
+            }}
           />
           <Button
             type="primary"
             icon={<RightCircleFilled />}
             onClick={() => nextButton()}
             size="large"
-            className={cssMobile.buttonSwitch}
+            style={{ backgroundColor: '#fbb040', color: '#000' }}
           />
         </Col>
       </Row>
