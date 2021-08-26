@@ -54,35 +54,6 @@ function SlidePosterMobile() {
   return (
     <React.Fragment>
       <Row gutter={[0, 16]} style={{ marginTop: '10vh' }}>
-        <Col
-          flex={1}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Button
-            type="primary"
-            icon={<LeftCircleFilled />}
-            onClick={() => prevButton()}
-            size="large"
-            style={{
-              marginRight: 20,
-              backgroundColor: '#fbb040',
-              color: '#000',
-            }}
-          />
-          <Button
-            type="primary"
-            icon={<RightCircleFilled />}
-            onClick={() => nextButton()}
-            size="large"
-            style={{ backgroundColor: '#fbb040', color: '#000' }}
-          />
-        </Col>
-      </Row>
-      <Row gutter={[0, 16]} style={{ marginTop: '5vh' }}>
         <Col style={{ height: '30vh' }}>
           <Slider {...settings}>
             {data.map((item) => {
@@ -121,6 +92,35 @@ function SlidePosterMobile() {
               )
             })}
           </Slider>
+        </Col>
+      </Row>
+      <Row gutter={[0, 16]} style={{ marginTop: '20vh' }}>
+        <Col
+          flex={1}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Button
+            type="primary"
+            icon={<LeftCircleFilled />}
+            onClick={() => prevButton()}
+            size="large"
+            style={{
+              marginRight: 20,
+              backgroundColor: '#fbb040',
+              color: '#000',
+            }}
+          />
+          <Button
+            type="primary"
+            icon={<RightCircleFilled />}
+            onClick={() => nextButton()}
+            size="large"
+            style={{ backgroundColor: '#fbb040', color: '#000' }}
+          />
         </Col>
       </Row>
     </React.Fragment>

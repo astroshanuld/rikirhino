@@ -54,6 +54,28 @@ function SlideGalleryMobile() {
   return (
     <React.Fragment>
       <Row gutter={[0, 16]} style={{ marginTop: '10vh' }}>
+        <Col style={{ height: '30vh' }}>
+          <Slider {...settings}>
+            {data.map((item) => {
+              return (
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '30vh',
+                    }}
+                  >
+                    <Image src={item.data.imgUrl} width="90%" height="90%" />
+                  </div>
+                </div>
+              )
+            })}
+          </Slider>
+        </Col>
+      </Row>
+      <Row gutter={[0, 16]} style={{ marginTop: '5vh' }}>
         <Col
           flex={1}
           style={{
@@ -80,28 +102,6 @@ function SlideGalleryMobile() {
             size="large"
             style={{ backgroundColor: '#fbb040', color: '#000' }}
           />
-        </Col>
-      </Row>
-      <Row gutter={[0, 16]} style={{ marginTop: '5vh' }}>
-        <Col style={{ height: '30vh' }}>
-          <Slider {...settings}>
-            {data.map((item) => {
-              return (
-                <div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '30vh',
-                    }}
-                  >
-                    <Image src={item.data.imgUrl} width="90%" height="90%" />
-                  </div>
-                </div>
-              )
-            })}
-          </Slider>
         </Col>
       </Row>
     </React.Fragment>

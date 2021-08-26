@@ -56,6 +56,34 @@ function SlideHomeMobile() {
   return (
     <React.Fragment>
       <Row gutter={[0, 16]} style={{ marginTop: '10vh' }}>
+        <Col style={{ height: '30vh' }}>
+          <Slider {...settings}>
+            {data.map((item) => {
+              return (
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '30vh',
+                    }}
+                  >
+                    {/* <Text>{item.data.url}</Text> */}
+                    <iframe
+                      title="Youtube Embed"
+                      src={`https://www.youtube.com/embed/${item.data.url}`}
+                      height="90%"
+                      width="90%"
+                    />
+                  </div>
+                </div>
+              )
+            })}
+          </Slider>
+        </Col>
+      </Row>
+      <Row gutter={[0, 16]} style={{ marginTop: '5vh' }}>
         <Col
           flex={1}
           style={{
@@ -82,34 +110,6 @@ function SlideHomeMobile() {
             size="large"
             style={{ backgroundColor: '#fbb040', color: '#000' }}
           />
-        </Col>
-      </Row>
-      <Row gutter={[0, 16]} style={{ marginTop: '5vh' }}>
-        <Col style={{ height: '30vh' }}>
-          <Slider {...settings}>
-            {data.map((item) => {
-              return (
-                <div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '30vh',
-                    }}
-                  >
-                    {/* <Text>{item.data.url}</Text> */}
-                    <iframe
-                      title="Youtube Embed"
-                      src={`https://www.youtube.com/embed/${item.data.url}`}
-                      height="90%"
-                      width="90%"
-                    />
-                  </div>
-                </div>
-              )
-            })}
-          </Slider>
         </Col>
       </Row>
     </React.Fragment>
