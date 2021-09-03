@@ -1,9 +1,9 @@
+/* eslint-disable react/jsx-curly-newline */
 import FacebookOutlined from '@ant-design/icons/FacebookOutlined'
 import InstagramOutlined from '@ant-design/icons/InstagramOutlined'
-import TwitterOutlined from '@ant-design/icons/TwitterOutlined'
 import { Affix, Button, Tabs } from 'antd'
-import cssHome from 'views/Home/partials/Home.module.scss'
 import React from 'react'
+import cssHome from 'views/Home/partials/Home.module.scss'
 
 const { TabPane } = Tabs
 
@@ -22,18 +22,27 @@ const Desktop = (props: IDesktop) => {
         type="dashed"
         shape="circle"
         icon={<InstagramOutlined />}
+        onClick={() =>
+          window.open('https://www.instagram.com/rikirhino.movie/', '_blank')
+        }
         style={{ margin: '0px 5px' }}
       />
-      <Button
+      {/* <Button
         type="dashed"
         shape="circle"
         icon={<TwitterOutlined />}
+        onClick={() =>
+          router.push('https://www.instagram.com/rikirhino.movie/')
+        }
         style={{ margin: '0px 5px' }}
-      />
+      /> */}
       <Button
         type="dashed"
         shape="circle"
         icon={<FacebookOutlined />}
+        onClick={() =>
+          window.open('https://www.facebook.com/RikiRhinoMovie/', '_blank')
+        }
         style={{ margin: '0px 5px' }}
       />
     </div>
@@ -66,25 +75,25 @@ const Desktop = (props: IDesktop) => {
             key="1"
           />
           <TabPane
-            tab={<span className={cssHome.menuText}>Story</span>}
+            tab={<span className={cssHome.menuText}>Journey</span>}
             key="2"
           />
           <TabPane
-            tab={<span className={cssHome.menuText}>Karakter</span>}
+            tab={<span className={cssHome.menuText}>Character</span>}
             key="3"
           />
           <TabPane
-            tab={<span className={cssHome.menuText}>Lokasi</span>}
+            tab={<span className={cssHome.menuText}>Location</span>}
             key="4"
           />
           <TabPane
             tab={<span className={cssHome.menuText}>Gallery</span>}
             key="5"
           />
-          <TabPane
+          {/* <TabPane
             tab={<span className={cssHome.menuText}>Games</span>}
             key="6"
-          />
+          /> */}
           <TabPane
             tab={<span className={cssHome.menuText}>Poster</span>}
             key="7"
@@ -93,10 +102,10 @@ const Desktop = (props: IDesktop) => {
             tab={<span className={cssHome.menuText}>Soundtrack</span>}
             key="8"
           />
-          <TabPane
+          {/* <TabPane
             tab={<span className={cssHome.menuText}>Diary Beni</span>}
             key="9"
-          />
+          /> */}
           <TabPane
             tab={<span className={cssHome.menuText}>News</span>}
             key="10"

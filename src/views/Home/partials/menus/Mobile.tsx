@@ -77,7 +77,7 @@ const Mobile = (props: IMobile) => {
             color: '#000',
           }}
         >
-          Story
+          Journey
         </Button>
         <Button
           onClick={() => onClickMenu('3')}
@@ -88,7 +88,7 @@ const Mobile = (props: IMobile) => {
             color: '#000',
           }}
         >
-          Karakter
+          Character
         </Button>
         <Button
           onClick={() => onClickMenu('4')}
@@ -99,7 +99,7 @@ const Mobile = (props: IMobile) => {
             color: '#000',
           }}
         >
-          Lokasi
+          Location
         </Button>
         <Button
           onClick={() => onClickMenu('5')}
@@ -112,7 +112,7 @@ const Mobile = (props: IMobile) => {
         >
           Gallery
         </Button>
-        <Button
+        {/* <Button
           onClick={() => onClickMenu('6')}
           style={{
             fontFamily: 'LuckiestGuy',
@@ -122,7 +122,7 @@ const Mobile = (props: IMobile) => {
           }}
         >
           Games
-        </Button>
+        </Button> */}
         <Button
           onClick={() => onClickMenu('7')}
           style={{
@@ -145,7 +145,7 @@ const Mobile = (props: IMobile) => {
         >
           Soundtrack
         </Button>
-        <Button
+        {/* <Button
           onClick={() => onClickMenu('9')}
           style={{
             fontFamily: 'LuckiestGuy',
@@ -155,7 +155,7 @@ const Mobile = (props: IMobile) => {
           }}
         >
           Diary Beni
-        </Button>
+        </Button> */}
         <Button
           onClick={() => onClickMenu('10')}
           style={{
