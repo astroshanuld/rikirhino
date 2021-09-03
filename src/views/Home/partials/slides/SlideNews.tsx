@@ -63,6 +63,8 @@ function SlideNews() {
           display: 'grid',
           alignItems: 'center',
           justifyContent: 'center',
+          overflowY: 'scroll',
+          height: '70vh',
         }}
       >
         {data.map((item, index) => (
