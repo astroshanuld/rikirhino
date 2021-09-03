@@ -1,6 +1,6 @@
 import DashboardOutlined from '@ant-design/icons/DashboardOutlined'
-import SettingOutlined from '@ant-design/icons/SettingOutlined'
-import SolutionOutlined from '@ant-design/icons/SolutionOutlined'
+import FileTextOutlined from '@ant-design/icons/FileTextOutlined'
+import FormOutlined from '@ant-design/icons/FormOutlined'
 
 function useMenu() {
   const data = [
@@ -14,7 +14,7 @@ function useMenu() {
     {
       id: 'menu2',
       name: 'Edit Pages',
-      icon: <SolutionOutlined style={{ fontSize: 16 }} />,
+      icon: <FormOutlined style={{ fontSize: 16 }} />,
       url: '',
       submenus: [
         {
@@ -68,7 +68,7 @@ function useMenu() {
     {
       id: 'menu3',
       name: 'News',
-      icon: <SettingOutlined style={{ fontSize: 16 }} />,
+      icon: <FileTextOutlined style={{ fontSize: 16 }} />,
       url: '',
       submenus: [
         {
