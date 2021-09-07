@@ -56,7 +56,12 @@ function SlideLokasi(props: LokasiProps) {
         md={2}
         sm={4}
         className={cssHome.leftButton}
-        style={{ display: 'flex' }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '80vh',
+        }}
       >
         <Button
           type="link"
