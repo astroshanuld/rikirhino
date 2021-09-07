@@ -24,7 +24,12 @@ import cssPages from 'views/Admin/Pages/Pages.module.scss'
 const { Text, Title } = Typography
 const { confirm } = Modal
 
-function Youtube() {
+interface IYoutube {
+  id: string
+}
+
+function Youtube(props: IYoutube) {
+  const { id } = props
   const [data, setData] = useState([])
   const [dataItem, setDataItem] = useState([])
   const lastData = useRef([])
@@ -35,7 +40,7 @@ function Youtube() {
   const [addVideoTitle, setAddVideoTitle] = useState('')
   const [addVideoId, setAddVideoId] = useState('')
 
-  const getData = firebase.firestore().collection('Home')
+  const getData = firebase.firestore().collection(id)
 
   const getDataItem = () => {
     if (!_.isEmpty(data)) {

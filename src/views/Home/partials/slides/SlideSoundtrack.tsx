@@ -1,48 +1,154 @@
-import { Col, Image, Row } from 'antd'
-import cssHome from 'views/Home/partials/Home.module.scss'
+import Icon from '@ant-design/icons/'
+import { Button, Col, Row } from 'antd'
 import renderIf from 'layouts/renderIf'
 import firebase from 'layouts/routes/firebaseClient'
 import { useEffect, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
+import YouTube from 'react-youtube'
+import cssHome from 'views/Home/partials/Home.module.scss'
 
-interface SoundtrackProps {
-  contHeight: string
-}
+function SlideSoundtrack() {
+  const [ytbIndex, setYtbIndex] = useState(0)
+  const [data, setData] = useState([])
 
-function SlideSoundtrack(props: SoundtrackProps) {
-  const { contHeight } = props
-  const [imgUrl, setImgUrl] = useState('')
+  const screenXl = useMediaQuery({ query: '(min-width: 1200px)' })
+  const screenLg = useMediaQuery({ query: '(min-width: 992px)' })
+  const screenMd = useMediaQuery({ query: '(min-width: 768px)' })
+  const screenSm = useMediaQuery({ query: '(min-width: 576px)' })
+  const screenSsm = useMediaQuery({ query: '(max-width: 576px)' })
 
   useEffect(() => {
     const getData = firebase
       .firestore()
-      .collection('Pages')
-      .doc('Soundtrack')
-    getData.onSnapshot(async (querySnapShot) => {
-      setImgUrl(querySnapShot.get('imgUrl'))
+      .collection('Soundtrack')
+      .orderBy('createdDate')
+    getData.onSnapshot(async (querySnapshot) => {
+      const item = []
+      querySnapshot.forEach((doc) => {
+        const datas = item
+        datas.push({
+          id: doc.id,
+          data: doc.data(),
+        })
+      })
+      setData(item)
     })
-  })
+  }, [ytbIndex])
+
+  const checkScreen = () => {
+    if (screenXl) {
+      return cssHome.youtubeContainerXl
+    }
+    if (screenLg) {
+      return cssHome.youtubeContainerLg
+    }
+    if (screenMd) {
+      return cssHome.youtubeContainerMd
+    }
+    if (screenSm) {
+      return cssHome.youtubeContainerSm
+    }
+    if (screenSsm) {
+      return cssHome.youtubeContainerSsm
+    }
+  }
+
+  const prevButton = () => {
+    if (ytbIndex > 0) {
+      setYtbIndex(ytbIndex - 1)
+    } else if (ytbIndex === 0) {
+      setYtbIndex(data.length - 1)
+    }
+  }
+
+  const nextButton = () => {
+    if (ytbIndex < data.length - 1) {
+      setYtbIndex(ytbIndex + 1)
+    } else if (ytbIndex === data.length - 1) {
+      setYtbIndex(0)
+    }
+  }
 
   return (
-    <Row gutter={[0, 16]} style={{ height: contHeight }}>
-      <Col
-        xl={24}
-        lg={24}
-        md={24}
-        sm={24}
-        flex={1}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <div className={cssHome.youtubeContainer}>
-          {renderIf(imgUrl !== '')(
-            <Image src={imgUrl} height={contHeight} preview={false} />,
-          )}
-        </div>
-      </Col>
-    </Row>
+    <div>
+      <Row gutter={[0, 16]}>
+        <Col
+          xl={2}
+          lg={2}
+          md={2}
+          sm={4}
+          className={cssHome.leftButton}
+          style={{ display: 'flex' }}
+        >
+          <Button
+            type="link"
+            icon={
+              <Icon
+                component={() => (
+                  <img
+                    src="./../../../../images/left-button.png"
+                    width={50}
+                    alt="."
+                  />
+                )}
+              />
+            }
+            onClick={() => prevButton()}
+          />
+        </Col>
+        <Col
+          xl={20}
+          lg={20}
+          md={20}
+          sm={16}
+          flex={1}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '80vh',
+          }}
+        >
+          <div>
+            {data.map((item, index) => (
+              <div>
+                {renderIf(index === ytbIndex)(
+                  <YouTube videoId={item.data.url} className={checkScreen()} />,
+                )}
+              </div>
+            ))}
+          </div>
+        </Col>
+        <Col
+          xl={2}
+          lg={2}
+          md={2}
+          sm={4}
+          className={cssHome.rightButton}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <Button
+            type="link"
+            icon={
+              <Icon
+                component={() => (
+                  <img
+                    src="./../../../../images/right-button.png"
+                    width={50}
+                    alt="."
+                  />
+                )}
+              />
+            }
+            style={{ display: 'contents' }}
+            onClick={() => nextButton()}
+          />
+        </Col>
+      </Row>
+    </div>
   )
 }
 

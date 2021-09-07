@@ -28,7 +28,7 @@ function Pages(props: any) {
 
   const checkTitle = () => {
     if (id === 'Home') {
-      return <Youtube />
+      return <Youtube id={id} />
     }
     if (id === 'Story') {
       return <Single id={id} />
@@ -46,7 +46,7 @@ function Pages(props: any) {
       return <Multiple id={id} />
     }
     if (id === 'Soundtrack') {
-      return <Single id={id} />
+      return <Youtube id={id} />
     }
     if (id === 'Poster') {
       return <Multiple id={id} />
