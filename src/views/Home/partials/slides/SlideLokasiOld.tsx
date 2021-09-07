@@ -1,14 +1,14 @@
 import { Col, Image, Row } from 'antd'
-import { useEffect, useState } from 'react'
-import cssHome from 'views/Home/partials/Home.module.scss'
 import renderIf from 'layouts/renderIf'
 import firebase from 'layouts/routes/firebaseClient'
+import { useEffect, useState } from 'react'
+import cssHome from 'views/Home/partials/Home.module.scss'
 
-interface StoryProps {
+interface LokasiProps {
   contHeight: string
 }
 
-function SlideStory(props: StoryProps) {
+function SlideLokasi(props: LokasiProps) {
   const { contHeight } = props
   const [imgUrl, setImgUrl] = useState('')
 
@@ -16,7 +16,7 @@ function SlideStory(props: StoryProps) {
     const getData = firebase
       .firestore()
       .collection('Pages')
-      .doc('Story')
+      .doc('Lokasi')
     getData.onSnapshot(async (querySnapShot) => {
       setImgUrl(querySnapShot.get('imgUrl'))
     })
@@ -34,10 +34,9 @@ function SlideStory(props: StoryProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '80vh',
         }}
       >
-        <div className={cssHome.youtubeContainer}>
+        <div className={cssHome.youtubeContainerLocation}>
           {renderIf(imgUrl !== '')(
             <Image src={imgUrl} height={contHeight} preview={false} />,
           )}
@@ -47,4 +46,4 @@ function SlideStory(props: StoryProps) {
   )
 }
 
-export default SlideStory
+export default SlideLokasi

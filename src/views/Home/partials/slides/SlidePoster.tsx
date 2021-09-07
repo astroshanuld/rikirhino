@@ -78,11 +78,15 @@ function SlidePoster(props: PosterProps) {
           onClick={() => prevButton()}
         />
       </Col>
-      <Col xl={20} lg={20} md={20} sm={20}>
-        <div style={{ height: '10%' }}>
+      <Col xl={20} lg={20} md={20} sm={20} style={{ height: '80vh' }}>
+        <div style={{ height: '20%' }}>
           <React.Fragment />
         </div>
-        <div style={{ height: '80%' }}>
+        <div
+          style={{
+            height: '60%',
+          }}
+        >
           <Slider {...settings}>
             {data.map((item) => (
               <div>
@@ -109,7 +113,7 @@ function SlidePoster(props: PosterProps) {
             ))}
           </Slider>
         </div>
-        <div style={{ height: '10%' }}>
+        <div style={{ height: '20%' }}>
           <React.Fragment />
         </div>
       </Col>

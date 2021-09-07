@@ -37,7 +37,7 @@ function Pages(props: any) {
       return <Multiple id={id} />
     }
     if (id === 'Lokasi') {
-      return <Single id={id} />
+      return <Multiple id={id} />
     }
     if (id === 'Games') {
       return <Single id={id} />

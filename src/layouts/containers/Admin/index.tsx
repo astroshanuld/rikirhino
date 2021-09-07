@@ -56,7 +56,9 @@ function AdminContainer(props: IProps) {
           <Layout style={{ maxWidth: 1440, minHeight: '100vh' }}>
             <Sidebar />
 
-            <Layout style={{ minHeight: '100vh', margin: 'auto' }}>
+            <Layout
+              style={{ minHeight: '100vh', minWidth: '100vw', margin: 'auto' }}
+            >
               <Header />
 
               <Content

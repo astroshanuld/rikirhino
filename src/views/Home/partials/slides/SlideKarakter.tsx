@@ -84,6 +84,7 @@ function SlideKarakter(props: KarakterProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          height: '80vh',
         }}
       >
         {data.map((item, index) => (
