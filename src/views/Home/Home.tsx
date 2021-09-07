@@ -160,7 +160,7 @@ function Home() {
             tabIndex={tabIndex}
           />,
         )
-        setRender(<SlideSoundtrack contHeight={height} />)
+        setRender(<SlideSoundtrack />)
       }
     }
     if (tabIndex === '9') {
