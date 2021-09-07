@@ -205,7 +205,7 @@ function Multiple(props: MultipleProps) {
   return (
     <Space direction="vertical" style={{ width: '100%' }} size="middle">
       <div id={cssContent.customPageHeader}>
-        <PageHeader title="Pages" subTitle={id} />
+        <PageHeader title="Pages" subTitle={id === 'Lokasi' ? 'Journey' : id} />
       </div>
       <Row gutter={16} justify="end">
         <Col>

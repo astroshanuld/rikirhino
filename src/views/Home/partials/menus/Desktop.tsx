@@ -75,7 +75,7 @@ const Desktop = (props: IDesktop) => {
             key="1"
           />
           <TabPane
-            tab={<span className={cssHome.menuText}>Journey</span>}
+            tab={<span className={cssHome.menuText}>Story</span>}
             key="2"
           />
           <TabPane
@@ -83,13 +83,13 @@ const Desktop = (props: IDesktop) => {
             key="3"
           />
           <TabPane
-            tab={<span className={cssHome.menuText}>Location</span>}
+            tab={<span className={cssHome.menuText}>Journey</span>}
             key="4"
           />
-          <TabPane
+          {/* <TabPane
             tab={<span className={cssHome.menuText}>Gallery</span>}
             key="5"
-          />
+          /> */}
           {/* <TabPane
             tab={<span className={cssHome.menuText}>Games</span>}
             key="6"

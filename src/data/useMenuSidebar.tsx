@@ -29,24 +29,24 @@ function useMenu() {
         },
         {
           id: '3',
-          name: 'Karakter',
+          name: 'Character',
           url: '/admin/pages/Karakter',
         },
         {
           id: '4',
-          name: 'Lokasi',
+          name: 'Journey',
           url: '/admin/pages/Lokasi',
         },
-        {
-          id: '5',
-          name: 'Gallery',
-          url: '/admin/pages/Gallery',
-        },
-        {
-          id: '6',
-          name: 'Games',
-          url: '/admin/pages/Games',
-        },
+        // {
+        //   id: '5',
+        //   name: 'Gallery',
+        //   url: '/admin/pages/Gallery',
+        // },
+        // {
+        //   id: '6',
+        //   name: 'Games',
+        //   url: '/admin/pages/Games',
+        // },
         {
           id: '7',
           name: 'Poster',
@@ -57,11 +57,11 @@ function useMenu() {
           name: 'Soundtrack',
           url: '/admin/pages/Soundtrack',
         },
-        {
-          id: '9',
-          name: 'Diary Beni',
-          url: '/admin/pages/Diary',
-        },
+        // {
+        //   id: '9',
+        //   name: 'Diary Beni',
+        //   url: '/admin/pages/Diary',
+        // },
       ],
     },
     // Menu yang ada turunan
