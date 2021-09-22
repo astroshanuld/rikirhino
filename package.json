@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=\"-r esm\" next -p 3333",
-    "build": "cross-env NODE_OPTIONS=\"-r esm\" next build",
+    "build": "cross-env NODE_OPTIONS=\"-r esm --max_old_space_size=3072\" next build",
     "test": "npm run test:ci",
     "test:dev": "npm run test:types && npm run test:eslint && jest --watch",
     "test:ci": "npm run test:types && npm run test:eslint && jest",
@@ -12,7 +12,7 @@
     "test:eslint": "eslint --ext .ts,.tsx ./src",
     "type-check:watch": "npm run test:types -- --watch",
     "analyze": "cross-env-shell NODE_OPTIONS=\"-r esm\" ANALYZE=true next build",
-    "deploy": "cross-env NODE_OPTIONS=\"--max_old_space_size=4096\" yarn && npm run build && pm2 reload ecosystem.config.js",
+    "deploy": "yarn && npm run build && pm2 reload ecosystem.config.js",
     "start": "next start -p 3000",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
