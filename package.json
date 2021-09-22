@@ -13,7 +13,7 @@
     "type-check:watch": "npm run test:types -- --watch",
     "analyze": "cross-env-shell NODE_OPTIONS=\"-r esm\" ANALYZE=true next build",
     "deploy": "yarn && npm run build && pm2 reload ecosystem.config.js",
-    "start": "next start -p 7000",
+    "start": "next start -p 3000",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
