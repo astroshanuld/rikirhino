@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'fe_trasmi_dev',
+      name: 'rikirhino',
       script: 'npm',
 
       // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
@@ -12,7 +12,7 @@ module.exports = {
       watch: false,
       max_memory_restart: '1G',
       env: {
-        URL_ENV: 'staging',
+        URL_ENV: 'production',
       },
     },
   ],
