@@ -9,7 +9,7 @@ import useRefreshStyle from '@nexys/hooks/useRefreshStyle/useRefreshStyle'
 // import useLoadingPage from 'hooks/useLoadingPage/useLoadingPage'
 const title = 'Riki Rhino'
 const description = 'Riki Rhino'
-const metaURL = 'https://sharaikios.com'
+const metaURL = 'https://rikirhino.com'
 const metaImage = '/static/logo.png'
 const webIconURL = '/static/favicon.ico'
 
