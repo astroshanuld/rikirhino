@@ -101,7 +101,7 @@ const Mobile = (props: IMobile) => {
         >
           Journey
         </Button>
-        <Button
+        {/* <Button
           onClick={() => onClickMenu('5')}
           style={{
             fontFamily: 'LuckiestGuy',
@@ -111,7 +111,7 @@ const Mobile = (props: IMobile) => {
           }}
         >
           Gallery
-        </Button>
+        </Button> */}
         {/* <Button
           onClick={() => onClickMenu('6')}
           style={{
