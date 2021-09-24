@@ -77,7 +77,7 @@ const Mobile = (props: IMobile) => {
             color: '#000',
           }}
         >
-          Journey
+          Story
         </Button>
         <Button
           onClick={() => onClickMenu('3')}
@@ -99,7 +99,7 @@ const Mobile = (props: IMobile) => {
             color: '#000',
           }}
         >
-          Location
+          Journey
         </Button>
         <Button
           onClick={() => onClickMenu('5')}
